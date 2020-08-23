@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const OfflineBarCss = styled.div`
+export const OfflineBarCss = styled.section`
 	position: fixed;
 	top: 0;
 	z-index: 10000;
