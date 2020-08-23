@@ -5,6 +5,7 @@ import { lightTheme, darkTheme } from './components/Themes';
 import { Provider as StoreProvider } from 'react-redux';
 import store from './store';
 import Router from './router';
+import Offline from './components/Offline';
 import Test from './components/Test';
 
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 
 				<Test />
 				<Router />
+				<Offline />
 			</ThemeProvider>
 		</StoreProvider>
 	);
