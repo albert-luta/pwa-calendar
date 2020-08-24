@@ -18,6 +18,12 @@
 			"sizes": "192x192"
 		},
 		{
+			"src": "logo-mask.png",
+			"type": "image/png",
+			"sizes": "192x192",
+			"purpose": "any maskable"
+		},
+		{
 			"src": "logo512.png",
 			"type": "image/png",
 			"sizes": "512x512"
