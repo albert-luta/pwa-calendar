@@ -56,6 +56,9 @@ function registerValidSW(swUrl, config) {
 	navigator.serviceWorker
 		.register(swUrl)
 		.then((registration) => {
+			// If a new version is already waiting to take control
+			promptUserToUpdateApp(registration);
+
 			registration.onupdatefound = () => {
 				const installingWorker = registration.installing;
 				if (installingWorker == null) {
@@ -71,6 +74,8 @@ function registerValidSW(swUrl, config) {
 								'New content is available and will be used when all ' +
 									'tabs for this page are closed. See https://bit.ly/CRA-PWA.'
 							);
+
+							promptUserToUpdateApp(registration);
 
 							// Execute callback
 							if (config && config.onUpdate) {
@@ -99,7 +104,7 @@ function registerValidSW(swUrl, config) {
 function checkValidServiceWorker(swUrl, config) {
 	// Check if the service worker can be found. If it can't reload the page.
 	fetch(swUrl, {
-		headers: { 'Service-Worker': 'script' },
+		headers: { 'Service-Worker': 'script' }
 	})
 		.then((response) => {
 			// Ensure service worker exists, and that we really are getting a JS file.
@@ -122,6 +127,37 @@ function checkValidServiceWorker(swUrl, config) {
 		.catch(() => {
 			console.log('No internet connection found. App is running in offline mode.');
 		});
+}
+
+function promptUserToUpdateApp(registration) {
+	// Grab the waiting service worker
+	const waitingServiceWorker = registration.waiting;
+
+	// If we have waiting service worker
+	if (waitingServiceWorker) {
+		// Add a listener for state change
+		waitingServiceWorker.addEventListener('statechange', (event) => {
+			if (event && event.target && event.target.state === 'activated') {
+				// If the state gets activated reload the page
+				// Is getting activated after we call postMessage({ type: "SKIP_WAITING" })
+				window.location.reload();
+			}
+		});
+
+		// Grab the new app popup element
+		const newAppVersion = document.getElementById('new-app-version');
+		const newAppButton = document.getElementById('new-app-version-button');
+
+		if (newAppVersion && newAppButton) {
+			// If it exists we add class show to display it
+			newAppVersion.classList.add('show');
+			// And attach a listener for click
+			newAppButton.addEventListener('click', () => {
+				// If the user clicks we skip the waiting and reload the page
+				waitingServiceWorker.postMessage({ type: 'SKIP_WAITING' });
+			});
+		}
+	}
 }
 
 export function unregister() {
