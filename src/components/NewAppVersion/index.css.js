@@ -15,12 +15,14 @@ export const NewAppVersionWrapperCss = styled.div`
 	transition: opacity 0.5s ease-in-out;
 	z-index: -1;
 	display: flex;
+	pointer-events: none;
 
 	@media (min-width: 1024px) {
 		bottom: 15px;
 	}
 
 	&.show {
+		pointer-events: all;
 		opacity: 1;
 		z-index: 9999999;
 	}
