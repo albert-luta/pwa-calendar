@@ -6,6 +6,7 @@ import { Provider as StoreProvider } from 'react-redux';
 import store from './store';
 import Router from './router';
 import Offline from './components/Offline';
+import NewAppVersion from './components/NewAppVersion';
 import Loader from './components/Loader';
 import Test from './components/Test';
 
@@ -19,6 +20,7 @@ const App = () => {
 					<Test />
 					<Router />
 					<Offline />
+					<NewAppVersion />
 				</ThemeProvider>
 			</StoreProvider>
 		</Suspense>
