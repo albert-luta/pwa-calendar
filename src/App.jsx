@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyles from './components/GlobalStyles';
-import { lightTheme, darkTheme } from './components/Themes';
+import { lightTheme /*, darkTheme */ } from './components/Themes';
 import { Provider as StoreProvider } from 'react-redux';
 import store from './store';
 import Router from './router';
