@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const NewAppVersionWrapperCss = styled.div`
+export const InstallAppWrapperCss = styled.div`
 	background: var(--clr-background);
 	border-radius: 15px;
-	border: 1px solid var(--clr-error);
+	border: 1px solid var(--clr-black);
 	width: 80vw;
 	max-width: 550px;
 	opacity: 0;
@@ -11,19 +11,17 @@ export const NewAppVersionWrapperCss = styled.div`
 	padding-bottom: 15px;
 	position: fixed;
 	right: 15px;
-	bottom: 70px;
+	top: 70px;
 	transition: opacity 0.5s ease-in-out;
 	z-index: -1;
 	display: flex;
 	pointer-events: none;
 
-	@media (min-width: 1024px) {
-		bottom: 15px;
-	}
-
-	&.show {
-		pointer-events: all;
-		opacity: 1;
-		z-index: 9999999;
-	}
+	${({ active }) =>
+		active &&
+		css`
+			pointer-events: all;
+			opacity: 1;
+			z-index: 9999999;
+		`}
 `;
