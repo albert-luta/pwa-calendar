@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import { BrowserRouter, Switch, useLocation } from 'react-router-dom';
+import { BrowserRouter, useLocation } from 'react-router-dom';
 import Routes from './Routes';
 
 const ScrollToTop = memo(function ScrollToTop() {
@@ -17,9 +17,7 @@ const Router = memo(function Router() {
 		<BrowserRouter>
 			<ScrollToTop />
 
-			<Switch>
-				<Routes />
-			</Switch>
+			<Routes />
 		</BrowserRouter>
 	);
 });

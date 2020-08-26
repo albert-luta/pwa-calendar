@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const LoaderWrapperCss = styled.section`
+export const SplashScreenWrapperCss = styled.section`
 	position: fixed;
 	top: 0;
 	left: 0;

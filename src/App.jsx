@@ -8,17 +8,15 @@ import Router from './router';
 import Offline from './components/Offline';
 import NewAppVersion from './components/NewAppVersion';
 import InstallApp from './components/InstallApp';
-import Loader from './components/Loader';
-import Test from './components/Test';
+import SplashScreen from './components/SplashScreen';
 
 const App = () => {
 	return (
-		<Suspense fallback={<Loader />}>
+		<Suspense fallback={<SplashScreen />}>
 			<StoreProvider store={store}>
 				<ThemeProvider theme={lightTheme}>
 					<GlobalStyles />
 
-					<Test />
 					<Router />
 					<Offline />
 					<InstallApp />

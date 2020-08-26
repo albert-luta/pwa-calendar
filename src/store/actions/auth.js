@@ -1,0 +1,10 @@
+export const LOG_IN_BEGIN = 'LOG_IN_BEGIN';
+export const LOG_IN_SUCCESS = 'LOG_IN_SUCCESS';
+export const LOG_IN_ERROR = 'LOG_IN_ERROR';
+
+export const LOG_OUT_BEGIN = 'LOG_OUT_BEGIN';
+export const LOG_OUT_SUCCESS = 'LOG_OUT_SUCCESS';
+export const LOG_OUT_ERROR = 'LOG_OUT_ERROR';
+
+export const CREATE_ACCOUNT_BEGIN = 'CREATE_ACCOUNT_BEGIN';
+export const CREATE_ACCOUNT_ERROR = 'CREATE_ACCOUNT_ERROR';

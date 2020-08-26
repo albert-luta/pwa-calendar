@@ -1,3 +1,3 @@
-import count from './count';
+import auth from './auth';
 
-export { count };
+export { auth };
