@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ROUTES from '../constants/routes';
-import { Login } from '../pages';
+import { Login, Signup } from '../pages';
 import { PrivateRoute, NonPrivateRoute } from './Utils';
 
 const Routes = memo(function Routes() {
@@ -12,20 +12,24 @@ const Routes = memo(function Routes() {
 			</NonPrivateRoute>
 
 			<NonPrivateRoute path={ROUTES.SIGN_UP} exact>
-				<div>Sign up</div>
+				<Signup />
 			</NonPrivateRoute>
 
-			<PrivateRoute path={ROUTES.APPOINTMENTS} exact>
-				<div>Appointments</div>
-			</PrivateRoute>
+			<Route path={[ROUTES.APPOINTMENTS, ROUTES.STATISTICS, ROUTES.SETTINGS]}>
+				<h1>Header</h1>
+				<PrivateRoute path={ROUTES.APPOINTMENTS} exact>
+					<div>Appointments</div>
+				</PrivateRoute>
 
-			<PrivateRoute path={ROUTES.STATISTICS} exact>
-				<div>Statistics</div>
-			</PrivateRoute>
+				<PrivateRoute path={ROUTES.STATISTICS} exact>
+					<div>Statistics</div>
+				</PrivateRoute>
 
-			<PrivateRoute path={ROUTES.SETTINGS} exact>
-				<div>Settings</div>
-			</PrivateRoute>
+				<PrivateRoute path={ROUTES.SETTINGS} exact>
+					<div>Settings</div>
+				</PrivateRoute>
+				<h1>Menu bar</h1>
+			</Route>
 
 			<Route path="*">
 				<div>404</div>

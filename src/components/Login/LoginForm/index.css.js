@@ -5,13 +5,11 @@ export const ButtonsContainerCss = styled.div`
 	justify-content: space-between;
 	margin-top: 15px;
 
-	& > *:first-child {
-		margin-right: 6%;
+	& > * {
+		width: 47.5%;
 	}
 
 	a {
-		display: block;
-		width: 100%;
 		text-decoration: none;
 	}
 `;

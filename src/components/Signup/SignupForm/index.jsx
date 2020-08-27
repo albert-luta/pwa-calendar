@@ -1,4 +1,5 @@
 import React, { memo, useState, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { FormWrapperCss, LabelCss, InputWrapperCss, InputCss } from '../../shared/styles.css';
 import { isValidEmail } from '../../shared/utils';
@@ -7,6 +8,7 @@ import { ButtonContainerCss } from './index.css';
 import Button from '../../Button';
 import ErrorMessage from '../../ErrorMessage';
 import ERRORS from '../../../constants/errors';
+import ROUTES from '../../../constants/routes';
 
 const INITIAL_CREDENTIALS = {
 	name: '',
@@ -118,6 +120,11 @@ const SignupForm = memo(function SignupForm() {
 			<ErrorMessage active={!!errors.server}>{errors.server}</ErrorMessage>
 
 			<ButtonContainerCss>
+				<Link to={ROUTES.LOGIN}>
+					<Button back outline type="button">
+						Log-in
+					</Button>
+				</Link>
 				<Button loading={userLoading}>Sign-up</Button>
 			</ButtonContainerCss>
 		</FormWrapperCss>

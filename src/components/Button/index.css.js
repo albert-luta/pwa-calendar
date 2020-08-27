@@ -7,11 +7,26 @@ export const ContentWrapperCss = styled.div`
 export const ArrowWrapperCss = styled.div`
 	position: absolute;
 	width: 15px;
+	display: flex;
+	align-items: center;
 	top: 50%;
 	transform: translate(0, -50%);
 	right: 40%;
 	opacity: 0;
 	transition: transform var(--transition-time), opacity var(--transition-time);
+
+	svg {
+		width: 100%;
+		height: auto;
+	}
+
+	${({ back }) =>
+		back &&
+		css`
+			right: auto;
+			left: 40%;
+			transform: translate(0, -50%) rotate(180deg);
+		`}
 `;
 
 export const LoaderCss = styled.div`
@@ -63,6 +78,18 @@ export const ButtonCss = styled.button`
 			& ${ContentWrapperCss} {
 				transform: translateX(-15px);
 			}
+
+			${({ back }) =>
+				back &&
+				css`
+					& ${ArrowWrapperCss} {
+						transform: translate(-10px, -50%) rotate(180deg);
+					}
+
+					& ${ContentWrapperCss} {
+						transform: translateX(15px);
+					}
+				`}
 		}
 	}
 

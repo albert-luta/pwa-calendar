@@ -2,15 +2,15 @@ import React, { memo } from 'react';
 import { ButtonCss, ContentWrapperCss, ArrowWrapperCss, LoaderCss } from './index.css';
 import { ReactComponent as ArrowSvg } from './svg/arrow.svg';
 
-const Button = memo(function Button({ children, outline, loading, disabled, ...rest }) {
+const Button = memo(function Button({ children, outline, loading, disabled, back, ...rest }) {
 	return (
-		<ButtonCss {...rest} outline={outline} disabled={disabled || loading}>
+		<ButtonCss {...rest} outline={outline} back={back} disabled={disabled || loading}>
 			{loading ? (
 				<LoaderCss />
 			) : (
 				<>
 					<ContentWrapperCss>{children}</ContentWrapperCss>
-					<ArrowWrapperCss>
+					<ArrowWrapperCss back={back}>
 						<ArrowSvg />
 					</ArrowWrapperCss>
 				</>
