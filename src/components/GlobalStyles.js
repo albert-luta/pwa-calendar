@@ -12,10 +12,12 @@ const GlobalStyles = createGlobalStyle`
 
 	:root {
 		line-height: 1.4;
-		font-family: "Roboto", sans-serif;
+		font-family: ${({ theme: { font } }) => font};
 
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
+
+		--font: ${({ theme: { font } }) => font};
 
 		--clr-main: ${({ theme: { colors } }) => colors.main};
 		--clr-white: ${({ theme: { colors } }) => colors.white};
@@ -25,17 +27,9 @@ const GlobalStyles = createGlobalStyle`
 		--clr-background: ${({ theme: { colors } }) => colors.background};
 		--clr-text: ${({ theme: { colors } }) => colors.text};
 		--clr-text-alpha-50: ${({ theme: { colors } }) => colors.textAlpha50};
+		--clr-text-alpha-20: ${({ theme: { colors } }) => colors.textAlpha20};
 
-		--transition-speed: ${({ theme: { transitions } }) => transitions.speeds.normal};
-	}
-
-	h1,
-	h2,
-	h3,
-	h4,
-	label,
-	button {
-		font-weight: 500;
+		--transition-time: ${({ theme: { transitions } }) => transitions.speeds.normal};
 	}
 
 	label,

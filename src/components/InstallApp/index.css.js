@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const InstallAppWrapperCss = styled.div`
+export const InstallAppWrapperCss = styled.section`
 	background: var(--clr-background);
 	border-radius: 15px;
 	border: 1px solid var(--clr-black);

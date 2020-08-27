@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const NewAppVersionWrapperCss = styled.div`
+export const NewAppVersionWrapperCss = styled.section`
 	background: var(--clr-background);
 	border-radius: 15px;
 	border: 1px solid var(--clr-error);
