@@ -1,6 +1,13 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle, css } from 'styled-components';
 import reset from 'styled-reset';
 
+const fontStyles = css`
+	line-height: 1.4;
+	font-family: ${({ theme: { font } }) => font};
+
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+`;
 const GlobalStyles = createGlobalStyle`
 	${reset};
 
@@ -11,11 +18,7 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	:root {
-		line-height: 1.4;
-		font-family: ${({ theme: { font } }) => font};
-
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
+		${fontStyles}
 
 		--font: ${({ theme: { font } }) => font};
 
@@ -27,8 +30,7 @@ const GlobalStyles = createGlobalStyle`
 
 		--clr-background: ${({ theme: { colors } }) => colors.background};
 		--clr-text: ${({ theme: { colors } }) => colors.text};
-		--clr-text-alpha-50: ${({ theme: { colors } }) => colors.textAlpha50};
-		--clr-text-alpha-20: ${({ theme: { colors } }) => colors.textAlpha20};
+		--clr-text-alpha-05: ${({ theme: { colors } }) => colors.textAlpha05};
 
 		--transition-time: ${({ theme: { transitions } }) => transitions.speeds.normal};
 	}
@@ -37,6 +39,8 @@ const GlobalStyles = createGlobalStyle`
 	button {
 		cursor: pointer;
 		user-select: none;
+		
+		${fontStyles}
 	}
 
 	h1 {

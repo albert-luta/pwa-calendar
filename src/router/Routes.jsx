@@ -4,6 +4,7 @@ import ROUTES from '../constants/routes';
 import { Login, Signup } from '../pages';
 import { PrivateRoute, NonPrivateRoute } from './Utils';
 import { HeaderAndMenuLayoutCss } from '../components/shared/styles.css';
+import Header from '../components/Header';
 import MenuBar from '../components/MenuBar';
 
 const Routes = memo(function Routes() {
@@ -19,7 +20,7 @@ const Routes = memo(function Routes() {
 
 			<Route path={[ROUTES.APPOINTMENTS, ROUTES.STATISTICS, ROUTES.SETTINGS]}>
 				<HeaderAndMenuLayoutCss>
-					<h1>Header</h1>
+					<Header />
 
 					<Switch>
 						<PrivateRoute path={ROUTES.APPOINTMENTS} exact>

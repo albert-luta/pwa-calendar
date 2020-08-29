@@ -26,8 +26,7 @@ export const lightTheme = {
 		...colors,
 		background: colors.white,
 		text: colors.black,
-		textAlpha50: rgba(colors.black, 0.5),
-		textAlpha20: rgba(colors.black, 0.2)
+		textAlpha05: rgba(colors.black, 0.05)
 	},
 	transitions,
 	font,
