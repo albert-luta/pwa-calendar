@@ -1,3 +1,4 @@
+import React, { memo } from 'react';
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -17,7 +18,10 @@ const activeButton = css`
 		transform: translate(-50%, 15px);
 	}
 `;
-export const LinkCss = styled(Link)`
+const FilteredLink = memo(function FilteredLink({ active, ...props }) {
+	return <Link {...props} />;
+});
+export const LinkCss = styled(FilteredLink)`
 	flex: 1;
 	height: 100%;
 	background: var(--clr-main);
