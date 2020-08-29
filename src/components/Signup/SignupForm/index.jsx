@@ -122,7 +122,7 @@ const SignupForm = memo(function SignupForm() {
 			<ButtonContainerCss>
 				<Link to={ROUTES.LOGIN}>
 					<Button back outline type="button">
-						Log-in
+						Back
 					</Button>
 				</Link>
 				<Button loading={userLoading}>Sign-up</Button>

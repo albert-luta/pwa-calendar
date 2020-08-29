@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom';
 import ROUTES from '../constants/routes';
 import { Login, Signup } from '../pages';
 import { PrivateRoute, NonPrivateRoute } from './Utils';
+import { HeaderAndMenuLayoutCss } from '../components/shared/styles.css';
+import MenuBar from '../components/MenuBar';
 
 const Routes = memo(function Routes() {
 	return (
@@ -16,19 +18,25 @@ const Routes = memo(function Routes() {
 			</NonPrivateRoute>
 
 			<Route path={[ROUTES.APPOINTMENTS, ROUTES.STATISTICS, ROUTES.SETTINGS]}>
-				<h1>Header</h1>
-				<PrivateRoute path={ROUTES.APPOINTMENTS} exact>
-					<div>Appointments</div>
-				</PrivateRoute>
+				<HeaderAndMenuLayoutCss>
+					<h1>Header</h1>
 
-				<PrivateRoute path={ROUTES.STATISTICS} exact>
-					<div>Statistics</div>
-				</PrivateRoute>
+					<Switch>
+						<PrivateRoute path={ROUTES.APPOINTMENTS} exact>
+							<div>Appointments</div>
+						</PrivateRoute>
 
-				<PrivateRoute path={ROUTES.SETTINGS} exact>
-					<div>Settings</div>
-				</PrivateRoute>
-				<h1>Menu bar</h1>
+						<PrivateRoute path={ROUTES.STATISTICS} exact>
+							<div>Statistics</div>
+						</PrivateRoute>
+
+						<PrivateRoute path={ROUTES.SETTINGS} exact>
+							<div>Settings</div>
+						</PrivateRoute>
+					</Switch>
+
+					<MenuBar />
+				</HeaderAndMenuLayoutCss>
 			</Route>
 
 			<Route path="*">

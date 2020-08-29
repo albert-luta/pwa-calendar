@@ -2,6 +2,7 @@ const rgba = (rgb, alpha) => `rgba(${rgb.slice(4, rgb.length - 2)}, ${alpha})`;
 
 const colors = {
 	main: 'rgb(45,52,54)',
+	mainHover: 'rgb(60, 70, 73)',
 	white: 'rgb(253, 253, 253)',
 	success: 'rgb(0, 184, 148)',
 	error: 'rgb(214, 48, 49)',

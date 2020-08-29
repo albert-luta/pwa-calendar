@@ -29,3 +29,20 @@ export const InputCss = styled.input`
 	padding: 8px 10px;
 	margin-bottom: 5px;
 `;
+
+export const HeaderAndMenuLayoutCss = styled.section`
+	height: 100vh;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	& > *:nth-child(1),
+	& > *:nth-child(3) {
+		flex: 0;
+	}
+
+	& > *:nth-child(2) {
+		flex: 1;
+	}
+`;
