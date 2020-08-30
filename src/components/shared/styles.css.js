@@ -46,3 +46,30 @@ export const HeaderAndMenuLayoutCss = styled.section`
 		flex: 1;
 	}
 `;
+
+export const MainContainerCss = styled.main`
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0 2%;
+`;
+
+export const LoaderCss = styled.div`
+	border: ${({ size = 22 }) => size / 6}px solid
+		${({ color = 'background' }) => `var(--clr-${color})`};
+	border-top-color: transparent;
+	border-radius: 50%;
+	width: ${({ size = 22 }) => size}px;
+	height: ${({ size = 22 }) => size}px;
+
+	animation: spin 2s linear infinite;
+
+	@keyframes spin {
+		0% {
+			transform: rotate(0deg);
+		}
+		100% {
+			transform: rotate(360deg);
+		}
+	}
+`;

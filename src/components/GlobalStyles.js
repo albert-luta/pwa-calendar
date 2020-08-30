@@ -29,6 +29,9 @@ const GlobalStyles = createGlobalStyle`
 		--clr-background: ${({ theme: { colors } }) => colors.background};
 		--clr-text: ${({ theme: { colors } }) => colors.text};
 		--clr-text-alpha-05: ${({ theme: { colors } }) => colors.textAlpha05};
+		--clr-text-alpha-10: ${({ theme: { colors } }) => colors.textAlpha10};
+		--clr-text-alpha-50: ${({ theme: { colors } }) => colors.textAlpha50};
+		--clr-text-alpha-65: ${({ theme: { colors } }) => colors.textAlpha65};
 
 		--transition-time: ${({ theme: { transitions } }) => transitions.speeds.normal};
 	}

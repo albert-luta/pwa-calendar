@@ -1,4 +1,4 @@
-const rgba = (rgb, alpha) => `rgba(${rgb.slice(4, rgb.length - 2)}, ${alpha})`;
+const rgba = (rgb, alpha) => `rgba(${rgb.slice(4, rgb.length - 1)}, ${alpha})`;
 
 const colors = {
 	main: 'rgb(45,52,54)',
@@ -26,7 +26,10 @@ export const lightTheme = {
 		...colors,
 		background: colors.white,
 		text: colors.black,
-		textAlpha05: rgba(colors.black, 0.05)
+		textAlpha05: rgba(colors.black, 0.05),
+		textAlpha10: rgba(colors.black, 0.1),
+		textAlpha50: rgba(colors.black, 0.5),
+		textAlpha65: rgba(colors.black, 0.65)
 	},
 	transitions,
 	font,

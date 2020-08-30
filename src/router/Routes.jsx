@@ -6,6 +6,7 @@ import { PrivateRoute, NonPrivateRoute } from './Utils';
 import { HeaderAndMenuLayoutCss } from '../components/shared/styles.css';
 import Header from '../components/Header';
 import MenuBar from '../components/MenuBar';
+import Appointments from '../components/Appointments';
 
 const Routes = memo(function Routes() {
 	return (
@@ -24,7 +25,7 @@ const Routes = memo(function Routes() {
 
 					<Switch>
 						<PrivateRoute path={ROUTES.APPOINTMENTS} exact>
-							<div>Appointments</div>
+							<Appointments />
 						</PrivateRoute>
 
 						<PrivateRoute path={ROUTES.STATISTICS} exact>

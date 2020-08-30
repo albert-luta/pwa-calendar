@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
-import { ButtonCss, ContentWrapperCss, ArrowWrapperCss, LoaderCss } from './index.css';
+import { ButtonCss, ContentWrapperCss, ArrowWrapperCss } from './index.css';
+import { LoaderCss } from '../shared/styles.css';
 import { ReactComponent as ArrowSvg } from './svg/arrow.svg';
 
 const Button = memo(function Button({ children, outline, loading, disabled, back, ...rest }) {

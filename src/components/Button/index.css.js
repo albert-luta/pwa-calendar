@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { LoaderCss } from '../shared/styles.css';
 
 export const ContentWrapperCss = styled.div`
 	transition: transform var(--transition-time);
@@ -27,25 +28,6 @@ export const ArrowWrapperCss = styled.div`
 			left: 40%;
 			transform: translate(0, -50%) rotate(180deg);
 		`}
-`;
-
-export const LoaderCss = styled.div`
-	border: 3px solid var(--clr-background);
-	border-top-color: transparent;
-	border-radius: 50%;
-	width: 1.125rem;
-	height: 1.125rem;
-
-	animation: spin 2s linear infinite;
-
-	@keyframes spin {
-		0% {
-			transform: rotate(0deg);
-		}
-		100% {
-			transform: rotate(360deg);
-		}
-	}
 `;
 
 export const ButtonCss = styled.button`
