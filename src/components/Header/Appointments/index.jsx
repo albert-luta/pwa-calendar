@@ -1,36 +1,15 @@
-import React, { memo, useState, useRef, useCallback } from 'react';
+import React, { memo, useState, useCallback } from 'react';
+import { useSelector } from 'react-redux';
 import { ButtonCss } from '../index.css';
 import { ItemContentCss } from './index.css';
 import Dropdown, { Item } from '../Dropdown';
-import MONTH_NAMES from '../../../constants/monthNames';
+import { calculateMonths, generateMonthKey } from '../../../utils/appointments';
+import { updateSelectedMonth } from '../../../store/dispatchers/appointments';
 
-const calculateMonths = (monthNames) => {
-	const generateMonths = ({ year, start = 0, end = 12 }) => [
-		...monthNames.slice(start, end).map((monthName) => ({
-			monthName,
-			monthIndex: monthNames.indexOf(monthName),
-			year
-		}))
-	];
-
-	const currentDate = new Date();
-	const currentMonth = currentDate.getMonth();
-	const currentYear = currentDate.getFullYear();
-
-	const months = [
-		...generateMonths({ year: currentYear - 1, start: currentMonth }),
-		...generateMonths({ year: currentYear }),
-		...generateMonths({ year: currentYear + 1, end: currentMonth + 1 })
-	];
-
-	return months;
-};
-const getCurrentMonth = (months) => months[Math.floor(months.length / 2)];
-const generateMonthKey = ({ monthIndex, year }) => `${year}-${monthIndex}`;
+const MONTHS = calculateMonths();
 
 const Appointments = memo(function Appointments() {
-	const MONTHS = useRef(calculateMonths(MONTH_NAMES));
-	const [selected, setSelected] = useState(getCurrentMonth(MONTHS.current));
+	const selectedMonth = useSelector(({ appointments }) => appointments.selectedMonth);
 
 	const [showDropdown, setShowDropdown] = useState(false);
 	const toggleDropdown = useCallback(() => setShowDropdown((showDropdown) => !showDropdown), []);
@@ -41,13 +20,13 @@ const Appointments = memo(function Appointments() {
 			<h4>Appointments</h4>
 			<ButtonCss type="button" onClick={toggleDropdown}>
 				<h3>
-					{selected.monthName} {selected.year}
+					{selectedMonth.monthName} {selectedMonth.year}
 				</h3>
 			</ButtonCss>
 
 			<Dropdown active={showDropdown} align="left" onClose={closeDropdown}>
-				{MONTHS.current.map((month) => (
-					<Item key={generateMonthKey(month)} onClick={() => setSelected(month)}>
+				{MONTHS.map((month) => (
+					<Item key={generateMonthKey(month)} onClick={() => updateSelectedMonth(month)}>
 						<ItemContentCss>
 							<span>{month.monthName}</span> <span>{month.year}</span>
 						</ItemContentCss>
