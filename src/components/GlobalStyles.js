@@ -18,8 +18,6 @@ const GlobalStyles = createGlobalStyle`
 	}
 
 	:root {
-		${fontStyles}
-
 		--font: ${({ theme: { font } }) => font};
 
 		--clr-main: ${({ theme: { colors } }) => colors.main};
@@ -33,6 +31,10 @@ const GlobalStyles = createGlobalStyle`
 		--clr-text-alpha-05: ${({ theme: { colors } }) => colors.textAlpha05};
 
 		--transition-time: ${({ theme: { transitions } }) => transitions.speeds.normal};
+	}
+
+	body {
+		${fontStyles}
 	}
 
 	label,

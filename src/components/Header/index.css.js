@@ -26,3 +26,10 @@ export const ButtonCss = styled.button`
 		background: var(--clr-main--hover);
 	}
 `;
+
+export const SpecificContentContainerCss = styled.div`
+	height: calc((1.3rem + 1.5rem) * 1.4 + 2 * 10px);
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+`;

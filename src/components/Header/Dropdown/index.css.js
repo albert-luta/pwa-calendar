@@ -9,7 +9,9 @@ export const DropdownCss = styled.ul`
 	background: var(--clr-background);
 	border: 1px solid var(--clr-text);
 	border-radius: 10px;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: auto;
+	max-height: 50vh;
 	transform: translateY(0) scale(0);
 	transform-origin: top ${({ align }) => align};
 	pointer-events: none;
