@@ -101,7 +101,7 @@ const Appointments = memo(function Appointments() {
 				<PlusSvg />
 			</AddAppointmentButtonCss>
 			<Modal active={showAddAppointmentModal} onClose={closeAddAppointmentModal}>
-				<AddAppointmentForm />
+				<AddAppointmentForm active={showAddAppointmentModal} />
 			</Modal>
 		</AppointmentsContainerCss>
 	);

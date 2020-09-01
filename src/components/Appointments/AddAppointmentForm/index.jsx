@@ -1,4 +1,4 @@
-import React, { memo, useState, useCallback } from 'react';
+import React, { memo, useState, useCallback, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { FormWrapperCss, InputWrapperCss, LabelCss, InputCss } from '../../shared/styles.css';
 import Message from '../../Message';
@@ -15,7 +15,7 @@ const INITIAL_CREDENTIALS = {
 	group: ''
 };
 
-const AddAppointmentForm = memo(function AddAppointmentForm() {
+const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
 	const [credentials, setCredentials] = useState({ ...INITIAL_CREDENTIALS });
 	const handleChange = useCallback(({ target: { name, type, value, valueAsDate } }) => {
 		let newValue;
@@ -63,12 +63,16 @@ const AddAppointmentForm = memo(function AddAppointmentForm() {
 		[credentials]
 	);
 
+	useEffect(() => {
+		if (!active) resetServerMessages();
+	}, [active, resetServerMessages]);
+
 	const addAppointmentLoading = useSelector(
 		({ appointments }) => appointments.addAppointmentLoading
 	);
 
 	return (
-		<FormWrapperCss onSubmit={handleSubmit}>
+		<FormWrapperCss onSubmit={handleSubmit} onClick={resetServerMessages}>
 			<TitleCss>New Appointment</TitleCss>
 
 			<InputWrapperCss>
@@ -137,7 +141,7 @@ const AddAppointmentForm = memo(function AddAppointmentForm() {
 			</Message>
 
 			<ButtonContainerCss>
-				<Button loading={addAppointmentLoading} noIcon onClick={resetServerMessages}>
+				<Button loading={addAppointmentLoading} noIcon>
 					Add Appointment
 				</Button>
 			</ButtonContainerCss>
