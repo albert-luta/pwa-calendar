@@ -6,7 +6,8 @@ const colors = {
 	white: 'rgb(253, 253, 253)',
 	success: 'rgb(0, 184, 148)',
 	error: 'rgb(214, 48, 49)',
-	black: 'rgb(19, 19, 19)'
+	black: 'rgb(19, 19, 19)',
+	trueBlack: 'rgb(0, 0, 0)'
 };
 const transitions = {
 	speeds: {
@@ -24,6 +25,8 @@ const breakpoints = {
 export const lightTheme = {
 	colors: {
 		...colors,
+		blackAlpha50: rgba(colors.trueBlack, 0.5),
+
 		background: colors.white,
 		text: colors.black,
 		textAlpha05: rgba(colors.black, 0.05),

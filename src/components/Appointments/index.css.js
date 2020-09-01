@@ -4,11 +4,11 @@ import { MainContainerCss } from '../shared/styles.css';
 export const AppointmentsContainerCss = styled(MainContainerCss)`
 	background: var(--clr-background);
 	user-select: none;
+	position: relative;
 `;
 
 export const DayCss = styled.div`
 	margin-top: 2.5px;
-	margin-right: 5%;
 	text-align: center;
 
 	h3,
@@ -32,7 +32,8 @@ export const DayContainerCss = styled.section`
 	justify-content: space-between;
 
 	& ${DayCss} {
-		flex: 0;
+		flex: 0 1 7.5%;
+		min-width: 70px;
 	}
 
 	& ${AppointmentsWrapperCss} {
@@ -87,4 +88,34 @@ export const ErrorCss = styled.p`
 
 export const NoAppointmentsCss = styled.p`
 	color: var(--clr-text);
+`;
+
+export const AddAppointmentButtonCss = styled.button`
+	position: absolute;
+	bottom: 25px;
+	right: 25px;
+	width: 65px;
+	height: 65px;
+	border-radius: 50%;
+	color: var(--clr-white);
+	background: var(--clr-main);
+	transition: background var(--transition-time);
+	box-shadow: 0 0.35rem 0.4rem rgba(0, 0, 0, 0.4);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	svg {
+		width: 22.5%;
+		height: auto;
+	}
+
+	&:hover {
+		background: var(--clr-main--hover);
+	}
+
+	@media (min-width: ${({ theme: { breakpoints } }) => breakpoints.tablet}) {
+		right: 50%;
+		transform: translateX(50%);
+	}
 `;

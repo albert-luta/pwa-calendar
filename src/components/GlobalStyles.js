@@ -23,6 +23,7 @@ const GlobalStyles = createGlobalStyle`
 		--clr-main: ${({ theme: { colors } }) => colors.main};
 		--clr-main--hover: ${({ theme: { colors } }) => colors.mainHover};
 		--clr-white: ${({ theme: { colors } }) => colors.white};
+		--clr-black--alpha-50: ${({ theme: { colors } }) => colors.blackAlpha50};
 		--clr-success: ${({ theme: { colors } }) => colors.success};
 		--clr-error: ${({ theme: { colors } }) => colors.error};
 

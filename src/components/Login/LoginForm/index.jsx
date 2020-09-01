@@ -2,7 +2,7 @@ import React, { memo, useState, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { login } from '../../../store/dispatchers/auth';
-import ErrorMessage from '../../ErrorMessage';
+import Message from '../../Message';
 import ERRORS from '../../../constants/errors';
 import { isValidEmail } from '../../shared/utils';
 import Button from '../../Button';
@@ -15,8 +15,7 @@ const INITIAL_CREDENTIALS = {
 	password: ''
 };
 const INITIAL_ERRORS = {
-	email: '',
-	password: '',
+	...INITIAL_CREDENTIALS,
 	server: ''
 };
 
@@ -71,7 +70,7 @@ const LoginForm = memo(function LoginForm() {
 					value={credentials.email}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.email}>{errors.email}</ErrorMessage>
+				<Message active={!!errors.email}>{errors.email}</Message>
 			</InputWrapperCss>
 			<InputWrapperCss>
 				<LabelCss htmlFor="password">Password</LabelCss>
@@ -83,9 +82,9 @@ const LoginForm = memo(function LoginForm() {
 					value={credentials.password}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.password}>{errors.password}</ErrorMessage>
+				<Message active={!!errors.password}>{errors.password}</Message>
 			</InputWrapperCss>
-			<ErrorMessage active={!!errors.server}>{errors.server}</ErrorMessage>
+			<Message active={!!errors.server}>{errors.server}</Message>
 
 			<ButtonsContainerCss>
 				<Link to={ROUTES.SIGN_UP}>

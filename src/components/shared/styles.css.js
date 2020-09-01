@@ -10,6 +10,7 @@ export const LabelCss = styled.label`
 	display: block;
 	font-size: 1.25rem;
 	margin-bottom: 5px;
+	color: var(--clr-text);
 `;
 
 export const InputWrapperCss = styled.div`
@@ -23,6 +24,7 @@ export const InputCss = styled.input`
 	width: 100%;
 	background: transparent;
 
+	color: var(--clr-text);
 	font-family: var(--font);
 	font-size: 1.125rem;
 	border-bottom: 1px solid var(--clr-text);

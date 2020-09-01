@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const DropdownWrapperCss = styled.div`
 	position: relative;
+	z-index: 1;
 `;
 
 export const DropdownCss = styled.ul`

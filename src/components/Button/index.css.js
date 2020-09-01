@@ -50,30 +50,35 @@ export const ButtonCss = styled.button`
 		opacity: 0.5;
 	}
 
-	@media (min-width: ${({ theme: { breakpoints } }) => breakpoints.tablet}) and (hover: hover) {
-		&:hover {
-			& ${ArrowWrapperCss} {
-				opacity: 1;
-				transform: translate(10px, -50%);
-			}
-
-			& ${ContentWrapperCss} {
-				transform: translateX(-15px);
-			}
-
-			${({ back }) =>
-				back &&
-				css`
+	${({ noIcon }) =>
+		!noIcon &&
+		css`
+			@media (min-width: ${({ theme: { breakpoints } }) =>
+					breakpoints.tablet}) and (hover: hover) {
+				&:hover {
 					& ${ArrowWrapperCss} {
-						transform: translate(-10px, -50%) rotate(180deg);
+						opacity: 1;
+						transform: translate(10px, -50%);
 					}
 
 					& ${ContentWrapperCss} {
-						transform: translateX(15px);
+						transform: translateX(-15px);
 					}
-				`}
-		}
-	}
+
+					${({ back }) =>
+						back &&
+						css`
+							& ${ArrowWrapperCss} {
+								transform: translate(-10px, -50%) rotate(180deg);
+							}
+
+							& ${ContentWrapperCss} {
+								transform: translateX(15px);
+							}
+						`}
+				}
+			}
+		`}
 
 	${({ outline }) =>
 		outline &&

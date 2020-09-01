@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
-export const ErrorMessageCss = styled.small`
+export const MessageCss = styled.small`
 	display: block;
-	min-height: 1rem;
-	color: var(--clr-error);
+	min-height: calc(1rem * 1.4);
+	color: ${({ type }) => `var(--clr-${type})`};
 	opacity: 0;
 	transition: opacity var(--transition-time);
 

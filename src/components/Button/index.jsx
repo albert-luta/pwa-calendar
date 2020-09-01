@@ -3,17 +3,33 @@ import { ButtonCss, ContentWrapperCss, ArrowWrapperCss } from './index.css';
 import { LoaderCss } from '../shared/styles.css';
 import { ReactComponent as ArrowSvg } from './svg/arrow.svg';
 
-const Button = memo(function Button({ children, outline, loading, disabled, back, ...rest }) {
+const Button = memo(function Button({
+	children,
+	outline,
+	loading,
+	disabled,
+	back,
+	noIcon,
+	...rest
+}) {
 	return (
-		<ButtonCss {...rest} outline={outline} back={back} disabled={disabled || loading}>
+		<ButtonCss
+			{...rest}
+			outline={outline}
+			back={back}
+			disabled={disabled || loading}
+			noIcon={noIcon}
+		>
 			{loading ? (
 				<LoaderCss />
 			) : (
 				<>
 					<ContentWrapperCss>{children}</ContentWrapperCss>
-					<ArrowWrapperCss back={back}>
-						<ArrowSvg />
-					</ArrowWrapperCss>
+					{!noIcon && (
+						<ArrowWrapperCss back={back}>
+							<ArrowSvg />
+						</ArrowWrapperCss>
+					)}
 				</>
 			)}
 		</ButtonCss>

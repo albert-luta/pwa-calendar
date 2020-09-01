@@ -6,7 +6,7 @@ import { isValidEmail } from '../../shared/utils';
 import { createAccount } from '../../../store/dispatchers/auth';
 import { ButtonContainerCss } from './index.css';
 import Button from '../../Button';
-import ErrorMessage from '../../ErrorMessage';
+import Message from '../../Message';
 import ERRORS from '../../../constants/errors';
 import ROUTES from '../../../constants/routes';
 
@@ -77,7 +77,7 @@ const SignupForm = memo(function SignupForm() {
 					value={credentials.name}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.name}>{errors.name}</ErrorMessage>
+				<Message active={!!errors.name}>{errors.name}</Message>
 			</InputWrapperCss>
 			<InputWrapperCss>
 				<LabelCss htmlFor="email">Email</LabelCss>
@@ -89,7 +89,7 @@ const SignupForm = memo(function SignupForm() {
 					value={credentials.email}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.email}>{errors.email}</ErrorMessage>
+				<Message active={!!errors.email}>{errors.email}</Message>
 			</InputWrapperCss>
 			<InputWrapperCss>
 				<LabelCss htmlFor="password">Password</LabelCss>
@@ -101,7 +101,7 @@ const SignupForm = memo(function SignupForm() {
 					value={credentials.password}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.password}>{errors.password}</ErrorMessage>
+				<Message active={!!errors.password}>{errors.password}</Message>
 			</InputWrapperCss>
 			<InputWrapperCss>
 				<LabelCss htmlFor="confirmPassword">Confirm password</LabelCss>
@@ -113,11 +113,9 @@ const SignupForm = memo(function SignupForm() {
 					value={credentials.confirmPassword}
 					onChange={handleChange}
 				/>
-				<ErrorMessage active={!!errors.confirmPassword}>
-					{errors.confirmPassword}
-				</ErrorMessage>
+				<Message active={!!errors.confirmPassword}>{errors.confirmPassword}</Message>
 			</InputWrapperCss>
-			<ErrorMessage active={!!errors.server}>{errors.server}</ErrorMessage>
+			<Message active={!!errors.server}>{errors.server}</Message>
 
 			<ButtonContainerCss>
 				<Link to={ROUTES.LOGIN}>
