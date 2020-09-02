@@ -4,12 +4,12 @@ import { LoaderCss } from '../shared/styles.css';
 import { ReactComponent as ArrowSvg } from './svg/arrow.svg';
 
 const Button = memo(function Button({
-	children,
 	outline,
 	loading,
 	disabled,
 	back,
 	noIcon,
+	children,
 	...rest
 }) {
 	return (

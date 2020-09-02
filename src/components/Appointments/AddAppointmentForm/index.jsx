@@ -62,7 +62,6 @@ const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
 		},
 		[credentials]
 	);
-
 	useEffect(() => {
 		if (!active) resetServerMessages();
 	}, [active, resetServerMessages]);

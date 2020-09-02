@@ -6,9 +6,12 @@ import {
 	FETCH_MONTH_ERROR,
 	ADD_APPOINTMENT_BEGIN,
 	ADD_APPOINTMENT_SUCCESS,
-	ADD_APPOINTMENT_ERROR
+	ADD_APPOINTMENT_ERROR,
+	DELETE_APPOINTMENT_BEGIN,
+	DELETE_APPOINTMENT_SUCCESS,
+	DELETE_APPOINTMENT_ERROR
 } from '../actions/appointments';
-import { apiFetchMonth, apiAddAppointment } from '../../api/appointments';
+import { apiFetchMonth, apiAddAppointment, apiDeleteAppointment } from '../../api/appointments';
 import { generateMonthKey } from '../../utils/appointments';
 
 export const updateSelectedMonth = (newlySelectedMonth) =>
@@ -54,6 +57,21 @@ export const addAppointment = (details) =>
 			if (isDeltaMax1Year(details.date)) fetchMonth(generateMonthKey(details.date));
 		} catch (error) {
 			dispatch({ type: ADD_APPOINTMENT_ERROR });
+			throw error;
+		}
+	});
+
+export const deleteAppointment = (appointment) =>
+	dispatch(async (dispatch) => {
+		dispatch({ type: DELETE_APPOINTMENT_BEGIN });
+
+		try {
+			await apiDeleteAppointment(appointment);
+			dispatch({ type: DELETE_APPOINTMENT_SUCCESS });
+
+			if (isDeltaMax1Year(appointment.date)) fetchMonth(generateMonthKey(appointment.date));
+		} catch (error) {
+			dispatch({ type: DELETE_APPOINTMENT_ERROR });
 			throw error;
 		}
 	});

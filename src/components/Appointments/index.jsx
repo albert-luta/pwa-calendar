@@ -20,7 +20,22 @@ import { fetchMonth } from '../../store/dispatchers/appointments';
 import { ReactComponent as PlusSvg } from '../shared/assets/icons/plus.svg';
 import Modal from '../Modal';
 import AddAppointmentForm from './AddAppointmentForm';
+import ChangeAppointment from './ChangeAppointment';
 import DAY_NAMES from '../../constants/dayNames';
+
+const APPOINTMENT_TO_CHANGE_PLACEHOLDER = {
+	date: {
+		day: 1,
+		monthIndex: 0,
+		year: 2020
+	},
+	details: {
+		title: 'Placeholder',
+		start: '00:00',
+		end: '01:00',
+		group: null
+	}
+};
 
 const generateAppointmentKey = (details) => Object.values(details).join('-');
 const calculateDayName = ({ day, monthIndex, year }) => {
@@ -64,6 +79,13 @@ const Appointments = memo(function Appointments() {
 		return content;
 	}, [noAppointment, loading, error]);
 
+	const [showChangeAppointmentModal, setShowChangeAppointmentModal] = useState(false);
+	const openChangeAppointmentModal = useCallback(() => setShowChangeAppointmentModal(true), []);
+	const closeChangeAppointmentModal = useCallback(() => setShowChangeAppointmentModal(false), []);
+	const [appointmentToChange, setAppointmentToChange] = useState(
+		APPOINTMENT_TO_CHANGE_PLACEHOLDER
+	);
+
 	return (
 		<AppointmentsContainerCss>
 			{noAppointment ? (
@@ -84,6 +106,13 @@ const Appointments = memo(function Appointments() {
 							{dayAppointments.map(({ title, start, end, group }) => (
 								<AppointmentContainerCss
 									key={generateAppointmentKey({ day, title, start, end, group })}
+									onClick={() => {
+										openChangeAppointmentModal();
+										setAppointmentToChange({
+											date: { ...selectedMonth, day: parseInt(day) },
+											details: { title, start, end, group }
+										});
+									}}
 								>
 									<TitleCss>{title}</TitleCss>
 									<HourCss>
@@ -96,6 +125,12 @@ const Appointments = memo(function Appointments() {
 					</DayContainerCss>
 				))
 			)}
+			<Modal active={showChangeAppointmentModal} onClose={closeChangeAppointmentModal}>
+				<ChangeAppointment
+					appointment={appointmentToChange}
+					onClose={closeChangeAppointmentModal}
+				/>
+			</Modal>
 
 			<AddAppointmentButtonCss type="button" onClick={openAddAppointmentModal}>
 				<PlusSvg />
