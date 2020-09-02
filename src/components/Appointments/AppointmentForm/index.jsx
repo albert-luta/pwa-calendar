@@ -1,13 +1,11 @@
 import React, { memo, useState, useCallback, useEffect } from 'react';
-import { useSelector } from 'react-redux';
 import { FormWrapperCss, InputWrapperCss, LabelCss, InputCss } from '../../shared/styles.css';
 import Message from '../../Message';
 import Button from '../../Button';
 import { TitleCss, ButtonContainerCss } from './index.css';
-import { addAppointment } from '../../../store/dispatchers/appointments';
 import ERRORS from '../../../constants/errors';
 
-const INITIAL_CREDENTIALS = {
+const EMPTY_CREDENTIALS = {
 	title: '',
 	date: { value: '' },
 	start: { value: '' },
@@ -15,8 +13,19 @@ const INITIAL_CREDENTIALS = {
 	group: ''
 };
 
-const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
-	const [credentials, setCredentials] = useState({ ...INITIAL_CREDENTIALS });
+const AppointmentForm = memo(function AppointmentForm({
+	title,
+	buttonText,
+	active,
+	loading,
+	action,
+	initialCredentials,
+	onSuccess = () => {},
+	successText = ''
+}) {
+	const [credentials, setCredentials] = useState({
+		...(initialCredentials ?? EMPTY_CREDENTIALS)
+	});
 	const handleChange = useCallback(({ target: { name, type, value, valueAsDate } }) => {
 		let newValue;
 		switch (type) {
@@ -53,26 +62,23 @@ const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
 			e.preventDefault();
 
 			try {
-				await addAppointment(credentials);
-				setServerSuccess('Appointment added successfully');
-				setCredentials({ ...INITIAL_CREDENTIALS });
+				await action(credentials);
+				onSuccess();
+				setServerSuccess(successText);
+				setCredentials({ ...EMPTY_CREDENTIALS });
 			} catch (error) {
 				setServerError(ERRORS.SERVER);
 			}
 		},
-		[credentials]
+		[action, credentials, onSuccess, successText]
 	);
 	useEffect(() => {
 		if (!active) resetServerMessages();
 	}, [active, resetServerMessages]);
 
-	const addAppointmentLoading = useSelector(
-		({ appointments }) => appointments.addAppointmentLoading
-	);
-
 	return (
 		<FormWrapperCss onSubmit={handleSubmit} onClick={resetServerMessages}>
-			<TitleCss>New Appointment</TitleCss>
+			{title && <TitleCss>{title}</TitleCss>}
 
 			<InputWrapperCss>
 				<LabelCss htmlFor="title">Title</LabelCss>
@@ -128,7 +134,7 @@ const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
 					id="group"
 					name="group"
 					placeholder="Group"
-					value={credentials.group}
+					value={credentials.group ?? ''}
 					onChange={handleChange}
 				/>
 			</InputWrapperCss>
@@ -140,12 +146,12 @@ const AddAppointmentForm = memo(function AddAppointmentForm({ active }) {
 			</Message>
 
 			<ButtonContainerCss>
-				<Button loading={addAppointmentLoading} noIcon>
-					Add Appointment
+				<Button loading={loading} noIcon>
+					{buttonText}
 				</Button>
 			</ButtonContainerCss>
 		</FormWrapperCss>
 	);
 });
 
-export default AddAppointmentForm;
+export default AppointmentForm;

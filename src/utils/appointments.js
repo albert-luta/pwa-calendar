@@ -35,3 +35,6 @@ export const getCurrentMonth = () => {
 };
 
 export const generateMonthKey = ({ monthIndex, year }) => `${year}-${monthIndex}`;
+
+export const correctSingleDigit = (digits) =>
+	String(digits).length === 1 ? `0${digits}` : `${digits}`;

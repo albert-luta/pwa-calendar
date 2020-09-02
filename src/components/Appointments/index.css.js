@@ -31,6 +31,10 @@ export const DayContainerCss = styled.section`
 	display: flex;
 	justify-content: space-between;
 
+	&:last-child {
+		margin-bottom: 25px;
+	}
+
 	& ${DayCss} {
 		flex: 0 1 7.5%;
 		min-width: 70px;
@@ -91,8 +95,8 @@ export const NoAppointmentsCss = styled.p`
 `;
 
 export const AddAppointmentButtonCss = styled.button`
-	position: absolute;
-	bottom: 25px;
+	position: fixed;
+	bottom: calc(60px + 25px);
 	right: 25px;
 	width: 65px;
 	height: 65px;

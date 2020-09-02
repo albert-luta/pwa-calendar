@@ -16,10 +16,10 @@ import {
 } from './index.css';
 import { LoaderCss } from '../shared/styles.css';
 import { generateMonthKey } from '../../utils/appointments';
-import { fetchMonth } from '../../store/dispatchers/appointments';
+import { fetchMonth, addAppointment } from '../../store/dispatchers/appointments';
 import { ReactComponent as PlusSvg } from '../shared/assets/icons/plus.svg';
 import Modal from '../Modal';
-import AddAppointmentForm from './AddAppointmentForm';
+import AppointmentForm from './AppointmentForm';
 import ChangeAppointment from './ChangeAppointment';
 import DAY_NAMES from '../../constants/dayNames';
 
@@ -86,45 +86,58 @@ const Appointments = memo(function Appointments() {
 		APPOINTMENT_TO_CHANGE_PLACEHOLDER
 	);
 
+	const addAppointmentLoading = useSelector(
+		({ appointments }) => appointments.addAppointmentLoading
+	);
+
 	return (
-		<AppointmentsContainerCss>
-			{noAppointment ? (
-				<CenteredWrapperCss>{noAppointmentContent}</CenteredWrapperCss>
-			) : (
-				Object.entries(month).map(([day, dayAppointments]) => (
-					<DayContainerCss key={day}>
-						<DayCss>
-							<h3>{day}</h3>
-							<h5>
-								{calculateDayName({
-									...selectedMonth,
-									day: parseInt(day)
-								}).slice(0, 3)}
-							</h5>
-						</DayCss>
-						<AppointmentsWrapperCss>
-							{dayAppointments.map(({ title, start, end, group }) => (
-								<AppointmentContainerCss
-									key={generateAppointmentKey({ day, title, start, end, group })}
-									onClick={() => {
-										openChangeAppointmentModal();
-										setAppointmentToChange({
-											date: { ...selectedMonth, day: parseInt(day) },
-											details: { title, start, end, group }
-										});
-									}}
-								>
-									<TitleCss>{title}</TitleCss>
-									<HourCss>
-										{start} - {end}
-									</HourCss>
-									{group && <GroupCss>{group}</GroupCss>}
-								</AppointmentContainerCss>
-							))}
-						</AppointmentsWrapperCss>
-					</DayContainerCss>
-				))
-			)}
+		<>
+			<AppointmentsContainerCss>
+				{noAppointment ? (
+					<CenteredWrapperCss>{noAppointmentContent}</CenteredWrapperCss>
+				) : (
+					Object.entries(month).map(([day, dayAppointments]) => (
+						<DayContainerCss key={day}>
+							<DayCss>
+								<h3>{day}</h3>
+								<h5>
+									{calculateDayName({
+										...selectedMonth,
+										day: parseInt(day)
+									}).slice(0, 3)}
+								</h5>
+							</DayCss>
+							<AppointmentsWrapperCss>
+								{dayAppointments.map(({ title, start, end, group }) => (
+									<AppointmentContainerCss
+										key={generateAppointmentKey({
+											day,
+											title,
+											start,
+											end,
+											group
+										})}
+										onClick={() => {
+											openChangeAppointmentModal();
+											setAppointmentToChange({
+												date: { ...selectedMonth, day: parseInt(day) },
+												details: { title, start, end, group }
+											});
+										}}
+									>
+										<TitleCss>{title}</TitleCss>
+										<HourCss>
+											{start} - {end}
+										</HourCss>
+										{group && <GroupCss>{group}</GroupCss>}
+									</AppointmentContainerCss>
+								))}
+							</AppointmentsWrapperCss>
+						</DayContainerCss>
+					))
+				)}
+			</AppointmentsContainerCss>
+
 			<Modal active={showChangeAppointmentModal} onClose={closeChangeAppointmentModal}>
 				<ChangeAppointment
 					appointment={appointmentToChange}
@@ -136,9 +149,16 @@ const Appointments = memo(function Appointments() {
 				<PlusSvg />
 			</AddAppointmentButtonCss>
 			<Modal active={showAddAppointmentModal} onClose={closeAddAppointmentModal}>
-				<AddAppointmentForm active={showAddAppointmentModal} />
+				<AppointmentForm
+					title="New Appointment"
+					buttonText="Add Appointment"
+					successText="Appointment added successfully"
+					active={showAddAppointmentModal}
+					loading={addAppointmentLoading}
+					action={addAppointment}
+				/>
 			</Modal>
-		</AppointmentsContainerCss>
+		</>
 	);
 });
 

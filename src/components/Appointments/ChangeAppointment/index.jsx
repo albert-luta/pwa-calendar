@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useCallback } from 'react';
+import React, { memo, useState, useEffect, useCallback, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { ReactComponent as ChevronLeftSvg } from '../../shared/assets/icons/chevron-left.svg';
 import {
@@ -11,15 +11,30 @@ import {
 	DeleteButtonsWrapperCss
 } from './index.css';
 import Button from '../../Button';
-import { deleteAppointment } from '../../../store/dispatchers/appointments';
+import { deleteAppointment, editAppointment } from '../../../store/dispatchers/appointments';
 import Message from '../../Message';
+import AppointmentForm from '../AppointmentForm';
+import { correctSingleDigit } from '../../../utils/appointments';
 import ERRORS from '../../../constants/errors';
 
 const STEPS = {
 	CHOOSE_ACTION: 0,
-	FORM: 1
+	EDIT: 1,
+	DELETE: 2
 };
 
+const getHoursAndMinutes = (time) => time.split(':').map((a) => parseInt(a));
+const getTimeObject = (time) => {
+	const [hours, minutes] = getHoursAndMinutes(time);
+
+	return { hours, minutes, value: time };
+};
+const getDateObject = ({ day, monthIndex, year }) => ({
+	day,
+	monthIndex,
+	year,
+	value: `${year}-${correctSingleDigit(monthIndex + 1)}-${correctSingleDigit(day)}`
+});
 const Container = memo(function Container({ active, children }) {
 	if (!active) return null;
 	return children;
@@ -31,24 +46,43 @@ const ChangeAppointment = memo(function ChangeAppointment({
 	onClose
 }) {
 	const [step, setStep] = useState(STEPS.CHOOSE_ACTION);
-	const goBack = useCallback(() => setStep((step) => step - 1), []);
-	const goToForm = useCallback(() => setStep(STEPS.FORM), []);
+	const goBack = useCallback(() => setStep(STEPS.CHOOSE_ACTION), []);
+	const goToEdit = useCallback(() => setStep(STEPS.EDIT), []);
+	const goToDelete = useCallback(() => setStep(STEPS.DELETE), []);
 	useEffect(() => setStep(STEPS.CHOOSE_ACTION), [appointment]);
 
-	const [serverError, setServerError] = useState('');
+	const [deleteServerError, setDeleteServerError] = useState('');
 	const memoDeleteAppointment = useCallback(async () => {
-		setServerError('');
+		setDeleteServerError('');
 
 		try {
 			await deleteAppointment(appointment);
 			onClose();
 		} catch (error) {
-			setServerError(ERRORS.SERVER);
+			setDeleteServerError(ERRORS.SERVER);
 		}
 	}, [appointment, onClose]);
 
+	const editAppointmentLoading = useSelector(
+		({ appointments }) => appointments.editAppointmentLoading
+	);
 	const deleteAppointmentLoading = useSelector(
 		({ appointments }) => appointments.deleteAppointmentLoading
+	);
+
+	const initialCredentials = useMemo(
+		() => ({
+			title: details.title,
+			group: details.group,
+			date: getDateObject(date),
+			start: getTimeObject(details.start),
+			end: getTimeObject(details.end)
+		}),
+		[details.title, details.group, date, details.start, details.end]
+	);
+	const memoEditAppointment = useCallback(
+		(updated) => editAppointment({ old: appointment, updated }),
+		[appointment]
 	);
 
 	return (
@@ -72,20 +106,31 @@ const ChangeAppointment = memo(function ChangeAppointment({
 				<BelowTitleWrapperCss>
 					<Container active={step === STEPS.CHOOSE_ACTION}>
 						<ActionButtonsWrapperCss>
-							<Button noIcon outline type="button" onClick={goToForm}>
+							<Button noIcon outline type="button" onClick={goToEdit}>
 								Edit
 							</Button>
-							<Button noIcon type="button" onClick={goToForm} id="delete">
+							<Button noIcon type="button" onClick={goToDelete} id="delete">
 								Delete
 							</Button>
 						</ActionButtonsWrapperCss>
 					</Container>
 
-					<Container active={step === STEPS.FORM}>
+					<Container active={step === STEPS.EDIT}>
+						<AppointmentForm
+							buttonText="Edit"
+							active={step === STEPS.EDIT}
+							loading={editAppointmentLoading}
+							initialCredentials={initialCredentials}
+							action={memoEditAppointment}
+							onSuccess={onClose}
+						/>
+					</Container>
+
+					<Container active={step === STEPS.DELETE}>
 						<DeleteTitleCss>
 							Are you sure you want to delete this appointment?
 						</DeleteTitleCss>
-						<Message active={!!serverError}>{serverError}</Message>
+						<Message active={!!deleteServerError}>{deleteServerError}</Message>
 						<DeleteButtonsWrapperCss>
 							<Button
 								noIcon

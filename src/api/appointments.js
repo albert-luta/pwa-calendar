@@ -65,7 +65,7 @@ export const apiAddAppointment = async ({ title, date, start, end, group }) => {
 	}
 };
 
-function areEqualShallow(a, b) {
+const areEqualShallow = (a, b) => {
 	for (const key in a) {
 		if (!(key in b) || a[key] !== b[key]) {
 			return false;
@@ -77,7 +77,7 @@ function areEqualShallow(a, b) {
 		}
 	}
 	return true;
-}
+};
 export const apiDeleteAppointment = async ({ date, details }) => {
 	const monthKey = generateMonthKey(date);
 	const filteredAppointments = months[monthKey][date.day].filter(
@@ -93,4 +93,9 @@ export const apiDeleteAppointment = async ({ date, details }) => {
 			[date.day]: firestore.FieldValue.delete()
 		});
 	}
+};
+
+export const apiEditAppointment = async ({ old, updated }) => {
+	await apiDeleteAppointment(old);
+	await apiAddAppointment(updated);
 };

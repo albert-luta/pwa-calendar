@@ -9,10 +9,18 @@ import {
 	ADD_APPOINTMENT_ERROR,
 	DELETE_APPOINTMENT_BEGIN,
 	DELETE_APPOINTMENT_SUCCESS,
-	DELETE_APPOINTMENT_ERROR
+	DELETE_APPOINTMENT_ERROR,
+	EDIT_APPOINTMENT_BEGIN,
+	EDIT_APPOINTMENT_SUCCESS,
+	EDIT_APPOINTMENT_ERROR
 } from '../actions/appointments';
-import { apiFetchMonth, apiAddAppointment, apiDeleteAppointment } from '../../api/appointments';
-import { generateMonthKey } from '../../utils/appointments';
+import {
+	apiFetchMonth,
+	apiAddAppointment,
+	apiDeleteAppointment,
+	apiEditAppointment
+} from '../../api/appointments';
+import { generateMonthKey, correctSingleDigit } from '../../utils/appointments';
 
 export const updateSelectedMonth = (newlySelectedMonth) =>
 	dispatch({ type: UPDATE_SELECTED_MONTH, payload: newlySelectedMonth });
@@ -28,7 +36,6 @@ export const fetchMonth = (monthKey) =>
 		}
 	});
 
-const correctSingleDigit = (digits) => (digits.length === 1 ? `0${digits}` : digits);
 const correctTimeFormat = (time) => time.split(':').map(correctSingleDigit).join(':');
 const generateHourString = ({ hours, minutes }) => correctTimeFormat(`${hours}:${minutes}`);
 const isDeltaMax1Year = ({ year, monthIndex }) => {
@@ -42,16 +49,17 @@ const isDeltaMax1Year = ({ year, monthIndex }) => {
 
 	return true;
 };
+const formatDetails = (details) => ({
+	...details,
+	start: generateHourString(details.start),
+	end: generateHourString(details.end)
+});
 export const addAppointment = (details) =>
 	dispatch(async (dispatch) => {
 		dispatch({ type: ADD_APPOINTMENT_BEGIN });
 
 		try {
-			await apiAddAppointment({
-				...details,
-				start: generateHourString(details.start),
-				end: generateHourString(details.end)
-			});
+			await apiAddAppointment(formatDetails(details));
 			dispatch({ type: ADD_APPOINTMENT_SUCCESS });
 
 			if (isDeltaMax1Year(details.date)) fetchMonth(generateMonthKey(details.date));
@@ -72,6 +80,30 @@ export const deleteAppointment = (appointment) =>
 			if (isDeltaMax1Year(appointment.date)) fetchMonth(generateMonthKey(appointment.date));
 		} catch (error) {
 			dispatch({ type: DELETE_APPOINTMENT_ERROR });
+			throw error;
+		}
+	});
+
+export const editAppointment = ({ old, updated }) =>
+	dispatch(async (dispatch) => {
+		dispatch({ type: EDIT_APPOINTMENT_BEGIN });
+
+		try {
+			await apiEditAppointment({
+				old,
+				updated: formatDetails(updated)
+			});
+			dispatch({ type: EDIT_APPOINTMENT_SUCCESS });
+
+			if (isDeltaMax1Year(old.date)) fetchMonth(generateMonthKey(old.date));
+			if (
+				(updated.date.year !== old.date.year ||
+					updated.date.monthIndex !== old.date.monthIndex) &&
+				isDeltaMax1Year(updated.date)
+			)
+				fetchMonth(generateMonthKey(updated.date));
+		} catch (error) {
+			dispatch({ type: EDIT_APPOINTMENT_ERROR });
 			throw error;
 		}
 	});

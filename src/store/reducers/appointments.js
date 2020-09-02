@@ -8,7 +8,10 @@ import {
 	ADD_APPOINTMENT_ERROR,
 	DELETE_APPOINTMENT_BEGIN,
 	DELETE_APPOINTMENT_SUCCESS,
-	DELETE_APPOINTMENT_ERROR
+	DELETE_APPOINTMENT_ERROR,
+	EDIT_APPOINTMENT_BEGIN,
+	EDIT_APPOINTMENT_SUCCESS,
+	EDIT_APPOINTMENT_ERROR
 } from '../actions/appointments';
 import { calculateMonths, getCurrentMonth, generateMonthKey } from '../../utils/appointments';
 import ERRORS from '../../constants/errors';
@@ -25,7 +28,8 @@ const INITIAL_STATE = {
 	errors: populateMonths(''),
 
 	addAppointmentLoading: false,
-	deleteAppointmentLoading: false
+	deleteAppointmentLoading: false,
+	editAppointmentLoading: false
 };
 
 const appointments = (state = INITIAL_STATE, action) => {
@@ -64,6 +68,12 @@ const appointments = (state = INITIAL_STATE, action) => {
 		case DELETE_APPOINTMENT_SUCCESS:
 		case DELETE_APPOINTMENT_ERROR:
 			return { ...state, deleteAppointmentLoading: false };
+
+		case EDIT_APPOINTMENT_BEGIN:
+			return { ...state, editAppointmentLoading: true };
+		case EDIT_APPOINTMENT_SUCCESS:
+		case EDIT_APPOINTMENT_ERROR:
+			return { ...state, editAppointmentLoading: false };
 
 		default:
 			return { ...state };

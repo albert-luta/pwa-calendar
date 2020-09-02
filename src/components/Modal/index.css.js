@@ -32,7 +32,7 @@ export const ModalContentWrapperCss = styled.div`
 	overflow-y: auto;
 	background: var(--clr-background);
 	border-radius: 10px;
-	padding: 20px 2.5%;
+	padding: 20px 30px;
 `;
 
 export const CloseButtonCss = styled.button`
