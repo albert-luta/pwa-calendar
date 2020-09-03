@@ -31,12 +31,31 @@ export const lightTheme = {
 		text: colors.black,
 		textAlpha05: rgba(colors.black, 0.05),
 		textAlpha10: rgba(colors.black, 0.1),
+		textAlpha35: rgba(colors.black, 0.35),
 		textAlpha50: rgba(colors.black, 0.5),
-		textAlpha65: rgba(colors.black, 0.65)
+		textAlpha65: rgba(colors.black, 0.65),
+		textAlpha85: rgba(colors.black, 0.85)
 	},
 	transitions,
 	font,
 	breakpoints
 };
 
-export const darkTheme = {};
+export const darkTheme = {
+	colors: {
+		...colors,
+		blackAlpha50: rgba(colors.trueBlack, 0.5),
+
+		background: colors.black,
+		text: colors.white,
+		textAlpha05: rgba(colors.white, 0.05),
+		textAlpha10: rgba(colors.white, 0.1),
+		textAlpha35: rgba(colors.white, 0.35),
+		textAlpha50: rgba(colors.white, 0.5),
+		textAlpha65: rgba(colors.white, 0.65),
+		textAlpha85: rgba(colors.white, 0.85)
+	},
+	transitions,
+	font,
+	breakpoints
+};

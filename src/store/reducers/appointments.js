@@ -11,7 +11,8 @@ import {
 	DELETE_APPOINTMENT_ERROR,
 	EDIT_APPOINTMENT_BEGIN,
 	EDIT_APPOINTMENT_SUCCESS,
-	EDIT_APPOINTMENT_ERROR
+	EDIT_APPOINTMENT_ERROR,
+	RESET_APPOINTMENTS
 } from '../actions/appointments';
 import { calculateMonths, getCurrentMonth, generateMonthKey } from '../../utils/appointments';
 import ERRORS from '../../constants/errors';
@@ -74,6 +75,9 @@ const appointments = (state = INITIAL_STATE, action) => {
 		case EDIT_APPOINTMENT_SUCCESS:
 		case EDIT_APPOINTMENT_ERROR:
 			return { ...state, editAppointmentLoading: false };
+
+		case RESET_APPOINTMENTS:
+			return { ...INITIAL_STATE };
 
 		default:
 			return { ...state };

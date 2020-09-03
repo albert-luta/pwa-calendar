@@ -6,5 +6,8 @@ export const apiLogout = () => auth.signOut();
 
 export const apiCreateAccount = async ({ name, email, password }) => {
 	await auth.createUserWithEmailAndPassword(email, password);
-	await db.collection('users').doc(email).set({ name, email });
+	await db
+		.collection('users')
+		.doc(email)
+		.set({ name, email, settings: { theme: 'light' } });
 };

@@ -1,12 +1,15 @@
-import React, { memo } from 'react';
+import React, { memo, lazy } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import ROUTES from '../constants/routes';
-import { Login, Signup } from '../pages';
 import { PrivateRoute, NonPrivateRoute } from './Utils';
 import { HeaderAndMenuLayoutCss } from '../components/shared/styles.css';
-import Header from '../components/Header';
-import MenuBar from '../components/MenuBar';
-import Appointments from '../components/Appointments';
+
+import Login from '../pages/Login';
+const Signup = lazy(() => import('../pages/Signup'));
+const Header = lazy(() => import('../components/Header'));
+const MenuBar = lazy(() => import('../components/MenuBar'));
+const Appointments = lazy(() => import('../pages/Appointments'));
+const Settings = lazy(() => import('../pages/Settings'));
 
 const Routes = memo(function Routes() {
 	return (
@@ -33,7 +36,7 @@ const Routes = memo(function Routes() {
 						</PrivateRoute>
 
 						<PrivateRoute path={ROUTES.SETTINGS} exact>
-							<div>Settings</div>
+							<Settings />
 						</PrivateRoute>
 					</Switch>
 

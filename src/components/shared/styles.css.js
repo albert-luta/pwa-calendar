@@ -75,3 +75,18 @@ export const LoaderCss = styled.div`
 		}
 	}
 `;
+
+export const ContentWrapperCss = styled.section`
+	background: var(--clr-background);
+	border-radius: 10px;
+	padding: 15px 25px;
+	margin-top: 25px;
+
+	&:last-child {
+		margin-bottom: 25px;
+	}
+`;
+
+export const ContentTitleCss = styled.h2`
+	color: var(--clr-text);
+`;
