@@ -107,3 +107,10 @@ export const ContentFieldWrapperCss = styled.div`
 export const ContentFieldTitleCss = styled.h4`
 	color: var(--clr-text);
 `;
+
+export const CenteredWrapperCss = styled.div`
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;

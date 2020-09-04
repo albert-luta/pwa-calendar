@@ -94,13 +94,6 @@ export const GroupCss = styled.small`
 	margin-top: 15px;
 `;
 
-export const CenteredWrapperCss = styled.div`
-	height: 100%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-`;
-
 export const ErrorCss = styled.p`
 	color: var(--clr-error);
 `;

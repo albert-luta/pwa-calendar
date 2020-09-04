@@ -9,12 +9,11 @@ import {
 	TitleCss,
 	HourCss,
 	GroupCss,
-	CenteredWrapperCss,
 	ErrorCss,
 	NoAppointmentsCss,
 	AddAppointmentButtonCss
 } from '../components/Appointments/index.css';
-import { LoaderCss } from '../components/shared/styles.css';
+import { LoaderCss, CenteredWrapperCss } from '../components/shared/styles.css';
 import { generateMonthKey } from '../utils/appointments';
 import { fetchMonth, addAppointment } from '../store/dispatchers/appointments';
 import { ReactComponent as PlusSvg } from '../components/shared/assets/icons/plus.svg';

@@ -23,15 +23,58 @@ const getDocumentsFromCollection = (collection) => {
 
 	return documents;
 };
-const calculateStatistics = (documents) => {
-	// const statistics = documents.reduce((acc, curr) => {
-	// 	Object.values(curr).reduce()
-	// }, {})
+const INITIAL_GROUP_STATS = {
+	completed: 0,
+	total: 0
+};
+const INITIAL_GROUPS = {
+	General: { ...INITIAL_GROUP_STATS },
+	'No group': { ...INITIAL_GROUP_STATS }
+};
+const calculateCompletedGroupObject = ({ completed }) => ({
+	completed: completed ? 1 : 0,
+	total: 1
+});
+const mergeGroups = (groups1, groups2) => {
+	const rootGroups = JSON.parse(JSON.stringify(groups1));
+	Object.entries(groups2).forEach(([name, details]) => {
+		if (name in rootGroups) {
+			rootGroups[name] = {
+				completed: rootGroups[name].completed + details.completed,
+				total: rootGroups[name].total + details.total
+			};
+		} else {
+			rootGroups[name] = { ...details };
+		}
+	});
 
-	return documents;
+	return rootGroups;
+};
+const calculateGroupStatistics = (documents) => {
+	const allGroups = documents.reduce((monthAcc, monthCurr) => {
+		const monthGroups = Object.values(monthCurr).reduce((dayAcc, dayCurr) => {
+			const dayGroups = dayCurr.reduce((appointmentAcc, appointmentCurr) => {
+				const appointmentGroups = { ...INITIAL_GROUPS };
+				const completedGroupObject = calculateCompletedGroupObject(appointmentCurr);
+
+				if (appointmentCurr.group) {
+					appointmentGroups[appointmentCurr.group] = { ...completedGroupObject };
+				} else appointmentGroups['No group'] = { ...completedGroupObject };
+				appointmentGroups.General = { ...completedGroupObject };
+
+				return mergeGroups(appointmentAcc, appointmentGroups);
+			}, {});
+
+			return mergeGroups(dayAcc, dayGroups);
+		}, {});
+
+		return mergeGroups(monthAcc, monthGroups);
+	}, {});
+
+	return allGroups;
 };
 export const apiFetchStatistics = async () => {
 	const documents = await dbAppointmentsRef.get().then(getDocumentsFromCollection);
 
-	return calculateStatistics(documents);
+	return { groups: calculateGroupStatistics(documents) };
 };

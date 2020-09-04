@@ -8,7 +8,7 @@ const GroupPercentage = memo(function GroupPercentage({ title, percentage = 0 })
 			<TitleCss>{title}</TitleCss>
 			<PercentageBarWrapperCss>
 				<PercentageBarCss percentage={percentage} />
-				<p>{percentage * 100}%</p>
+				<p>{Math.trunc(percentage * 100)}%</p>
 			</PercentageBarWrapperCss>
 		</ContentFieldWrapperCss>
 	);
