@@ -9,6 +9,7 @@ const Signup = lazy(() => import('../pages/Signup'));
 const Header = lazy(() => import('../components/Header'));
 const MenuBar = lazy(() => import('../components/MenuBar'));
 const Appointments = lazy(() => import('../pages/Appointments'));
+const Statistics = lazy(() => import('../pages/Statistics'));
 const Settings = lazy(() => import('../pages/Settings'));
 
 const Routes = memo(function Routes() {
@@ -32,7 +33,7 @@ const Routes = memo(function Routes() {
 						</PrivateRoute>
 
 						<PrivateRoute path={ROUTES.STATISTICS} exact>
-							<div>Statistics</div>
+							<Statistics />
 						</PrivateRoute>
 
 						<PrivateRoute path={ROUTES.SETTINGS} exact>

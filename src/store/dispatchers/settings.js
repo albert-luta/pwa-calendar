@@ -34,6 +34,7 @@ export const toggleTheme = () =>
 			dispatch({ type: TOGGLE_THEME_SUCCESS });
 		} catch (error) {
 			dispatch({ type: TOGGLE_THEME_ERROR });
-			throw error;
+			// Put an error prop on the Settings -> ToggleButton and show it there
+			// throw error;
 		}
 	});

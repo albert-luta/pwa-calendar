@@ -90,3 +90,20 @@ export const ContentWrapperCss = styled.section`
 export const ContentTitleCss = styled.h2`
 	color: var(--clr-text);
 `;
+
+export const ContentFieldWrapperCss = styled.div`
+	padding: 20px 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	user-select: none;
+	border-bottom: 1px solid var(--clr-text-alpha-50);
+
+	&:last-child {
+		border-bottom: none;
+	}
+`;
+
+export const ContentFieldTitleCss = styled.h4`
+	color: var(--clr-text);
+`;
