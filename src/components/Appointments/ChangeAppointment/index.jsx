@@ -8,13 +8,19 @@ import {
 	BelowTitleWrapperCss,
 	ActionButtonsWrapperCss,
 	DeleteTitleCss,
-	DeleteButtonsWrapperCss
+	DeleteButtonsWrapperCss,
+	ToggleCompletedWrapperCss
 } from './index.css';
 import Button from '../../Button';
-import { deleteAppointment, editAppointment } from '../../../store/dispatchers/appointments';
+import {
+	deleteAppointment,
+	editAppointment,
+	toggleCompleted
+} from '../../../store/dispatchers/appointments';
 import Message from '../../Message';
 import AppointmentForm from '../AppointmentForm';
 import { correctSingleDigit } from '../../../utils/appointments';
+import { LoaderCss } from '../../shared/styles.css';
 import ERRORS from '../../../constants/errors';
 
 const STEPS = {
@@ -85,6 +91,22 @@ const ChangeAppointment = memo(function ChangeAppointment({
 		[appointment]
 	);
 
+	const [toggleCompletedLoading, setToggleCompletedLoading] = useState(false);
+	const [toggleCompletedError, setToggleCompletedError] = useState('');
+	const toggleCompletedStatus = useCallback(async () => {
+		setToggleCompletedLoading(true);
+		setToggleCompletedError('');
+
+		try {
+			await toggleCompleted(appointment);
+			onClose();
+		} catch (error) {
+			setToggleCompletedError(ERRORS.SERVER);
+		} finally {
+			setToggleCompletedLoading(false);
+		}
+	}, [onClose, appointment]);
+
 	return (
 		<>
 			<BackButtonCss active={!!step} type="button" onClick={goBack}>
@@ -106,6 +128,26 @@ const ChangeAppointment = memo(function ChangeAppointment({
 				<BelowTitleWrapperCss>
 					<Container active={step === STEPS.CHOOSE_ACTION}>
 						<ActionButtonsWrapperCss>
+							<div>
+								<ToggleCompletedWrapperCss>
+									{toggleCompletedLoading ? (
+										<LoaderCss color="text" />
+									) : (
+										<label>
+											<input
+												type="checkbox"
+												checked={details.completed ?? false}
+												onChange={toggleCompletedStatus}
+											/>
+											Mark us{' '}
+											{details.completed ? 'uncompleted' : 'completed'}
+										</label>
+									)}
+								</ToggleCompletedWrapperCss>
+								<Message active={!!toggleCompletedError}>
+									{toggleCompletedError}
+								</Message>
+							</div>
 							<Button noIcon outline type="button" onClick={goToEdit}>
 								Edit
 							</Button>

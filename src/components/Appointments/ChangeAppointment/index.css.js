@@ -90,3 +90,14 @@ export const DeleteButtonsWrapperCss = styled.div`
 		border-color: var(--clr-error);
 	}
 `;
+
+export const ToggleCompletedWrapperCss = styled.div`
+	display: flex;
+	justify-content: center;
+
+	label {
+		display: block;
+		text-align: center;
+		color: var(--clr-text);
+	}
+`;

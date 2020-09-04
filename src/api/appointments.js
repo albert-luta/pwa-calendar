@@ -43,7 +43,8 @@ export const apiAddAppointment = async ({ title, date, start, end, group }) => {
 		title,
 		start,
 		end,
-		group: group || null
+		group: group || null,
+		completed: false
 	};
 
 	const month = await dbAppointmentsRef.doc(monthKey).get();
@@ -98,4 +99,17 @@ export const apiDeleteAppointment = async ({ date, details }) => {
 export const apiEditAppointment = async ({ old, updated }) => {
 	await apiDeleteAppointment(old);
 	await apiAddAppointment(updated);
+};
+
+export const apiToggleCompleted = async ({ date, details }) => {
+	const updatedAppointments = months[generateMonthKey(date)][date.day].map((appointment) => {
+		if (areEqualShallow(appointment, details))
+			return { ...appointment, completed: !appointment.completed };
+
+		return appointment;
+	});
+
+	await dbAppointmentsRef.doc(generateMonthKey(date)).update({
+		[date.day]: updatedAppointments
+	});
 };

@@ -18,7 +18,8 @@ import {
 	apiFetchMonth,
 	apiAddAppointment,
 	apiDeleteAppointment,
-	apiEditAppointment
+	apiEditAppointment,
+	apiToggleCompleted
 } from '../../api/appointments';
 import { generateMonthKey, correctSingleDigit } from '../../utils/appointments';
 
@@ -107,3 +108,8 @@ export const editAppointment = ({ old, updated }) =>
 			throw error;
 		}
 	});
+
+export const toggleCompleted = async (appointment) => {
+	await apiToggleCompleted(appointment);
+	fetchMonth(generateMonthKey(appointment.date));
+};

@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import React, { memo } from 'react';
+import styled, { css } from 'styled-components';
 import { MainContainerCss } from '../shared/styles.css';
 
 export const AppointmentsContainerCss = styled(MainContainerCss)`
@@ -45,7 +46,11 @@ export const DayContainerCss = styled.section`
 	}
 `;
 
-export const AppointmentContainerCss = styled.div`
+export const AppointmentContainerCss = styled(
+	memo(function AppointmentContainerCss({ completed, children, ...props }) {
+		return <div {...props}>{children}</div>;
+	})
+)`
 	background: var(--clr-text-alpha-05);
 	border-radius: 10px;
 	padding: 15px 25px;
@@ -61,6 +66,16 @@ export const AppointmentContainerCss = styled.div`
 	&:last-child {
 		margin-bottom: 0;
 	}
+
+	${({ completed }) =>
+		completed &&
+		css`
+			background: var(--clr-success--alpha-50);
+
+			&:hover {
+				background: var(--clr-success--alpha-60);
+			}
+		`};
 `;
 
 export const TitleCss = styled.h4`

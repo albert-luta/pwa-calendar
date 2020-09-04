@@ -107,20 +107,22 @@ const Appointments = memo(function Appointments() {
 								</h5>
 							</DayCss>
 							<AppointmentsWrapperCss>
-								{dayAppointments.map(({ title, start, end, group }) => (
+								{dayAppointments.map(({ title, start, end, group, completed }) => (
 									<AppointmentContainerCss
+										completed={completed}
 										key={generateAppointmentKey({
 											day,
 											title,
 											start,
 											end,
-											group
+											group,
+											completed
 										})}
 										onClick={() => {
 											openChangeAppointmentModal();
 											setAppointmentToChange({
 												date: { ...selectedMonth, day: parseInt(day) },
-												details: { title, start, end, group }
+												details: { title, start, end, group, completed }
 											});
 										}}
 									>

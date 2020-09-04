@@ -25,6 +25,8 @@ const GlobalStyles = createGlobalStyle`
 		--clr-white: ${({ theme: { colors } }) => colors.white};
 		--clr-black--alpha-50: ${({ theme: { colors } }) => colors.blackAlpha50};
 		--clr-success: ${({ theme: { colors } }) => colors.success};
+		--clr-success--alpha-50: ${({ theme: { colors } }) => colors.successAlpha50};
+		--clr-success--alpha-60: ${({ theme: { colors } }) => colors.successAlpha60};
 		--clr-error: ${({ theme: { colors } }) => colors.error};
 
 		--clr-background: ${({ theme: { colors } }) => colors.background};

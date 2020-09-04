@@ -5,9 +5,12 @@ const colors = {
 	mainHover: 'rgb(60, 70, 73)',
 	white: 'rgb(253, 253, 253)',
 	success: 'rgb(0, 184, 148)',
+	successAlpha50: 'rgba(0, 184, 148, 0.5)',
+	successAlpha60: 'rgba(0, 184, 148, 0.6)',
 	error: 'rgb(214, 48, 49)',
 	black: 'rgb(19, 19, 19)',
-	trueBlack: 'rgb(0, 0, 0)'
+	trueBlack: 'rgb(0, 0, 0)',
+	blackAlpha50: 'rgba(0, 0, 0, 0.5)'
 };
 const transitions = {
 	speeds: {
@@ -25,7 +28,6 @@ const breakpoints = {
 export const lightTheme = {
 	colors: {
 		...colors,
-		blackAlpha50: rgba(colors.trueBlack, 0.5),
 
 		background: colors.white,
 		text: colors.black,
@@ -44,7 +46,6 @@ export const lightTheme = {
 export const darkTheme = {
 	colors: {
 		...colors,
-		blackAlpha50: rgba(colors.trueBlack, 0.5),
 
 		background: colors.black,
 		text: colors.white,
