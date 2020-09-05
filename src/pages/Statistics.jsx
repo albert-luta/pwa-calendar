@@ -19,7 +19,7 @@ const Statistics = memo(function Statistics() {
 	const statisticsError = useSelector(({ statistics }) => statistics.statisticsError);
 
 	const groups = useSelector(({ statistics }) => statistics.groups);
-	console.log(groups);
+
 	return (
 		<StatisticsContainerCss>
 			{statisticsLoading || statisticsError ? (
