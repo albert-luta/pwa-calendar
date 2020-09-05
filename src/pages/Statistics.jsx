@@ -1,4 +1,5 @@
 import React, { memo, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { StatisticsContainerCss, StatisticsErrorCss } from '../components/Statistics/index.css';
 import {
 	ContentWrapperCss,
@@ -8,7 +9,6 @@ import {
 } from '../components/shared/styles.css';
 import { GroupPercentage } from '../components/Statistics';
 import { fetchStatistics } from '../store/dispatchers/statistics';
-import { useSelector } from 'react-redux';
 
 const Statistics = memo(function Statistics() {
 	useEffect(() => {
@@ -19,7 +19,7 @@ const Statistics = memo(function Statistics() {
 	const statisticsError = useSelector(({ statistics }) => statistics.statisticsError);
 
 	const groups = useSelector(({ statistics }) => statistics.groups);
-
+	console.log(groups);
 	return (
 		<StatisticsContainerCss>
 			{statisticsLoading || statisticsError ? (
@@ -38,7 +38,7 @@ const Statistics = memo(function Statistics() {
 							<GroupPercentage
 								key={title}
 								title={title}
-								percentage={completed / total}
+								percentage={completed / (total || 1)}
 							/>
 						))}
 				</ContentWrapperCss>
