@@ -38,7 +38,10 @@ const Offline = memo(function Offline() {
 	if (!isOffline) return null;
 	return (
 		<OfflineBarCss>
-			<p>Oops, it looks like you are not connected.</p>
+			<p>
+				Oops, it looks like you are not connected. Your changes will not take effect until
+				you get a stable internet connection.
+			</p>
 		</OfflineBarCss>
 	);
 });

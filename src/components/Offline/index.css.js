@@ -7,7 +7,7 @@ export const OfflineBarCss = styled.section`
 	width: 100vw;
 	text-align: center;
 	background: var(--clr-error);
-	padding: 0 15px;
+	padding: 10px 15px;
 
 	p {
 		color: var(--clr-white);
