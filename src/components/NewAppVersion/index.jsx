@@ -6,7 +6,7 @@ const NewAppVersion = memo(function NewAppVersion() {
 	return (
 		<NewAppVersionWrapperCss id="new-app-version">
 			<ContentWrapperCss>
-				<h3>A new verson has been released!</h3>
+				<h3>A new version has been released!</h3>
 				<p>Update the app and close this window for changes to take effect</p>
 			</ContentWrapperCss>
 			<Button noIcon type="button" id="new-app-version-button">

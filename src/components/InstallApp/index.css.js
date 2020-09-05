@@ -13,15 +13,14 @@ export const InstallAppWrapperCss = styled.section`
 	right: 15px;
 	top: 70px;
 	transition: opacity 0.5s ease-in-out;
-	z-index: -1;
 	pointer-events: none;
+	z-index: 100;
 
 	${({ active }) =>
 		active &&
 		css`
 			pointer-events: all;
 			opacity: 1;
-			z-index: 9999999;
 		`}
 `;
 

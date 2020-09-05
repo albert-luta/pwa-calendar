@@ -14,7 +14,7 @@ export const NewAppVersionWrapperCss = styled.section`
 	right: 15px;
 	bottom: 70px;
 	transition: opacity 0.5s ease-in-out;
-	z-index: -1;
+	z-index: 100;
 	pointer-events: none;
 
 	@media (min-width: 1024px) {
@@ -24,7 +24,6 @@ export const NewAppVersionWrapperCss = styled.section`
 	&.show {
 		pointer-events: all;
 		opacity: 1;
-		z-index: 9999999;
 	}
 `;
 

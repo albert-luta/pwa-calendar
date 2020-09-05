@@ -2,6 +2,9 @@ import React, { memo, useEffect, useCallback, useRef, useState } from 'react';
 import { InstallAppWrapperCss, ContentWrapperCss, ButtonsWrapperCss } from './index.css';
 import Button from '../Button';
 
+const LOCAL_STORAGE_INSTALL_APP_TIMEOUT = 'install-app';
+const TIMEOUT = 30 * 24 * 60 * 60 * 1000;
+
 const InstallApp = memo(function InstallApp() {
 	const deferredPrompt = useRef(null);
 	const [showInstallPrompt, setShowInstallPrompt] = useState(false);
@@ -11,8 +14,13 @@ const InstallApp = memo(function InstallApp() {
 		e.preventDefault();
 		// Stash the event so it can be triggered later.
 		deferredPrompt.current = e;
-		// Update UI notify the user they can add to home screen
-		setShowInstallPrompt(true);
+
+		const installTimeout =
+			JSON.parse(localStorage.getItem(LOCAL_STORAGE_INSTALL_APP_TIMEOUT)) ?? 0;
+		if (Date.now() >= installTimeout) {
+			// Update UI notify the user they can add to home screen
+			setShowInstallPrompt(true);
+		}
 	}, []);
 
 	useEffect(() => {
@@ -37,7 +45,14 @@ const InstallApp = memo(function InstallApp() {
 			deferredPrompt.current = null;
 		});
 	}, []);
-	const handleClosePrompt = useCallback(() => setShowInstallPrompt(false), []);
+	const handleMaybeLater = useCallback(() => {
+		localStorage.setItem(LOCAL_STORAGE_INSTALL_APP_TIMEOUT, Date.now() + TIMEOUT);
+		setShowInstallPrompt(false);
+	}, []);
+	const handleDontShowAgain = useCallback(() => {
+		localStorage.setItem(LOCAL_STORAGE_INSTALL_APP_TIMEOUT, Infinity);
+		setShowInstallPrompt(false);
+	}, []);
 
 	return (
 		<InstallAppWrapperCss active={showInstallPrompt}>
@@ -53,8 +68,11 @@ const InstallApp = memo(function InstallApp() {
 				<Button type="button" noIcon onClick={handleInstallApp}>
 					Install
 				</Button>
-				<Button type="button" noIcon onClick={handleClosePrompt}>
-					Dismiss
+				<Button type="button" noIcon onClick={handleMaybeLater}>
+					Maybe later
+				</Button>
+				<Button type="button" noIcon onClick={handleDontShowAgain}>
+					Don't show me this again
 				</Button>
 			</ButtonsWrapperCss>
 		</InstallAppWrapperCss>
