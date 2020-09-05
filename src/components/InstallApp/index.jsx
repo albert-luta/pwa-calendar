@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useCallback, useRef, useState } from 'react';
-import { InstallAppWrapperCss } from './index.css';
+import { InstallAppWrapperCss, ContentWrapperCss, ButtonsWrapperCss } from './index.css';
+import Button from '../Button';
 
 const InstallApp = memo(function InstallApp() {
 	const deferredPrompt = useRef(null);
@@ -40,15 +41,22 @@ const InstallApp = memo(function InstallApp() {
 
 	return (
 		<InstallAppWrapperCss active={showInstallPrompt}>
-			<button type="button" onClick={handleInstallApp}>
-				Install
-			</button>
-			<button type="button" onClick={handleClosePrompt}>
-				Maybe later
-			</button>
-			<button type="button" onClick={handleClosePrompt}>
-				Don't show me this again
-			</button>
+			<ContentWrapperCss>
+				<h3>Install the app</h3>
+				<p>
+					This app is a pwa, you can install it on any device you want and use it from
+					your homescreen as a regular app.
+				</p>
+				<p>You will not have to search for the website anymore.</p>
+			</ContentWrapperCss>
+			<ButtonsWrapperCss>
+				<Button type="button" noIcon onClick={handleInstallApp}>
+					Install
+				</Button>
+				<Button type="button" noIcon onClick={handleClosePrompt}>
+					Dismiss
+				</Button>
+			</ButtonsWrapperCss>
 		</InstallAppWrapperCss>
 	);
 });

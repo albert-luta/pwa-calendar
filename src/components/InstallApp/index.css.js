@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const InstallAppWrapperCss = styled.section`
 	background: var(--clr-background);
 	border-radius: 15px;
-	border: 1px solid var(--clr-black);
+	border: 1px solid var(--clr-text);
 	width: 80vw;
 	max-width: 550px;
 	opacity: 0;
@@ -14,7 +14,6 @@ export const InstallAppWrapperCss = styled.section`
 	top: 70px;
 	transition: opacity 0.5s ease-in-out;
 	z-index: -1;
-	display: flex;
 	pointer-events: none;
 
 	${({ active }) =>
@@ -24,4 +23,24 @@ export const InstallAppWrapperCss = styled.section`
 			opacity: 1;
 			z-index: 9999999;
 		`}
+`;
+
+export const ContentWrapperCss = styled.div`
+	color: var(--clr-text);
+	text-align: center;
+	margin-bottom: 20px;
+
+	h3 {
+		margin-bottom: 5px;
+	}
+`;
+
+export const ButtonsWrapperCss = styled.div`
+	& > * {
+		margin-bottom: 10px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
+	}
 `;
