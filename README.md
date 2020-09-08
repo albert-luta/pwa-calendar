@@ -3,7 +3,8 @@
 The core functionalities of a calendar into a PWA(Progressive Web App) - an app created with web
 tehnologies(in this case React), that can be run on every device as a 'native' one. You will not
 need to open the browser and search for it, there will be a homescreen icon from where you can
-access it, like any other native app.
+access it, like any other native app. <br /> <br /> You can find the app here:
+[PWA Calendar](https://pwa-calendar.netlify.app/).
 
 ## Structure
 
