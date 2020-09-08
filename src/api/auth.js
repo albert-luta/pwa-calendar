@@ -4,6 +4,7 @@ export const apiLogin = ({ email, password }) => auth.signInWithEmailAndPassword
 
 export const apiLogout = () => auth.signOut();
 
+// Create a new account and pre-populate with default info
 export const apiCreateAccount = async ({ name, email, password }) => {
 	await auth.createUserWithEmailAndPassword(email, password);
 	await db

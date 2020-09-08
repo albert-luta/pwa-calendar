@@ -47,6 +47,7 @@ const Appointments = memo(function Appointments() {
 	const selectedMonthKey = generateMonthKey(selectedMonth);
 	const month = useSelector(({ appointments: { months } }) => months[selectedMonthKey]);
 
+	// If the month selected doesn't 'exist'(is null) fetch it, else use it from the store
 	useEffect(() => {
 		if (!month) fetchMonth(selectedMonthKey);
 	}, [month, selectedMonthKey]);
@@ -138,6 +139,7 @@ const Appointments = memo(function Appointments() {
 				)}
 			</AppointmentsContainerCss>
 
+			{/* Edit appointment */}
 			<Modal active={showChangeAppointmentModal} onClose={closeChangeAppointmentModal}>
 				<ChangeAppointment
 					appointment={appointmentToChange}
@@ -145,6 +147,7 @@ const Appointments = memo(function Appointments() {
 				/>
 			</Modal>
 
+			{/* Add new appointment */}
 			<AddAppointmentButtonCss type="button" onClick={openAddAppointmentModal}>
 				<PlusSvg />
 			</AddAppointmentButtonCss>

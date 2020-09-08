@@ -2,6 +2,7 @@ import { db, firestore } from './config';
 import store from '../store';
 import { generateMonthKey } from '../utils/appointments';
 
+// Useful data from the store, so i don't need to pass it down on every api call
 let prevUser = null;
 let dbAppointmentsRef = null;
 let months = null;
@@ -28,6 +29,7 @@ export const apiFetchMonth = async (monthKey) => {
 	else return {};
 };
 
+// Transform hour string in total minutes, so it can be compared
 const transformInTotalMinutes = (time) => {
 	const [hours, minutes] = time.split(':').map((a) => parseInt(a));
 
@@ -51,15 +53,19 @@ export const apiAddAppointment = async ({ title, date, start, end, group }) => {
 	if (month.exists) {
 		const day = month.data()[date.day];
 		if (day) {
+			// Update the day appointments
 			await dbAppointmentsRef.doc(monthKey).update({
 				[date.day]: sortAppointments([...day, appointment])
 			});
 		} else {
+			// Create a new array with a single appointment
 			await dbAppointmentsRef.doc(monthKey).update({
 				[date.day]: [appointment]
 			});
 		}
-	} else {
+	}
+	// Create a new month document
+	else {
 		await dbAppointmentsRef.doc(monthKey).set({
 			[date.day]: [appointment]
 		});
@@ -86,10 +92,13 @@ export const apiDeleteAppointment = async ({ date, details }) => {
 	);
 
 	if (filteredAppointments.length) {
+		// Update the day with the filtered appointments
 		await dbAppointmentsRef.doc(monthKey).update({
 			[date.day]: filteredAppointments
 		});
-	} else {
+	}
+	// Delete the entire day field if there are no appointments left
+	else {
 		await dbAppointmentsRef.doc(monthKey).update({
 			[date.day]: firestore.FieldValue.delete()
 		});

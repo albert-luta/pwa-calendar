@@ -6,6 +6,7 @@ import {
 } from '../actions/statistics';
 import { apiFetchStatistics } from '../../api/statistics';
 
+// Fetch and calculate all statistics
 export const fetchStatistics = () =>
 	dispatch(async (dispatch) => {
 		dispatch({ type: FETCH_STATISTICS_BEGIN });

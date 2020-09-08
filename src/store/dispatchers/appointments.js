@@ -23,9 +23,11 @@ import {
 } from '../../api/appointments';
 import { generateMonthKey, correctSingleDigit } from '../../utils/appointments';
 
+// Update the month the user is viewing in the appointment tab
 export const updateSelectedMonth = (newlySelectedMonth) =>
 	dispatch({ type: UPDATE_SELECTED_MONTH, payload: newlySelectedMonth });
 
+// Fetch a specific month's appointments
 export const fetchMonth = (monthKey) =>
 	dispatch(async (dispatch) => {
 		dispatch({ type: FETCH_MONTH_BEGIN, payload: monthKey });
@@ -109,6 +111,7 @@ export const editAppointment = ({ old, updated }) =>
 		}
 	});
 
+// Toggle an appointment's complete status
 export const toggleCompleted = async (appointment) => {
 	await apiToggleCompleted(appointment);
 	fetchMonth(generateMonthKey(appointment.date));

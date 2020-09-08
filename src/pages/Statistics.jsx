@@ -11,6 +11,7 @@ import { GroupPercentage } from '../components/Statistics';
 import { fetchStatistics } from '../store/dispatchers/statistics';
 
 const Statistics = memo(function Statistics() {
+	// Fetch fresh statistics every time the user goes to the statistics tab
 	useEffect(() => {
 		fetchStatistics();
 	}, []);

@@ -9,6 +9,7 @@ import {
 } from '../actions/settings';
 import { apiFetchSettings, apiToggleTheme } from '../../api/settings';
 
+// Fetch settings
 export const fetchSettings = (user) =>
 	dispatch(async (dispatch) => {
 		dispatch({ type: FETCH_SETTINGS_BEGIN });
@@ -21,6 +22,7 @@ export const fetchSettings = (user) =>
 		}
 	});
 
+// Toggle theme from 'dark' to 'light'
 export const toggleTheme = () =>
 	dispatch(async (dispatch, getState) => {
 		dispatch({ type: TOGGLE_THEME_BEGIN });

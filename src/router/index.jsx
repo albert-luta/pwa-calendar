@@ -2,6 +2,7 @@ import React, { memo, useEffect } from 'react';
 import { BrowserRouter, useLocation } from 'react-router-dom';
 import Routes from './Routes';
 
+// Scroll to top on every route change
 const ScrollToTop = memo(function ScrollToTop() {
 	const { pathname } = useLocation();
 

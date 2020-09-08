@@ -1,5 +1,6 @@
 import MONTH_NAMES from '../constants/monthNames';
 
+// Generates an array of 24 months, the center being the current date
 export const calculateMonths = () => {
 	const generateMonths = ({ year, start = 0, end = 12 }) => [
 		...MONTH_NAMES.slice(start, end).map((monthName) => ({
@@ -22,6 +23,7 @@ export const calculateMonths = () => {
 	return months;
 };
 
+// Generates an object with the current date
 export const getCurrentMonth = () => {
 	const currentDate = new Date();
 	const currentMonth = currentDate.getMonth();

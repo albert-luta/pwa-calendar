@@ -11,10 +11,13 @@ import { fetchSettings } from './dispatchers/settings';
 const rootReducer = combineReducers({ auth: authReducer, appointments, statistics, settings });
 const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 auth.onAuthStateChanged((user) => {
+	// User is logged in
 	if (user) {
 		store.dispatch({ type: LOG_IN_SUCCESS, payload: user });
 		fetchSettings(user);
-	} else {
+	}
+	// User is not logged in
+	else {
 		store.dispatch({ type: LOG_OUT_SUCCESS });
 		store.dispatch({ type: RESET_APPOINTMENTS });
 		store.dispatch({ type: RESET_SETTINGS });
